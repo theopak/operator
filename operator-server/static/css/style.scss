@@ -1,0 +1,107 @@
+/**
+* style.scss
+* Theo Pak <mail@theopak.com>, Derek Schultz <derek@derek-schultz.net>
+*/
+
+
+/* NORMALIZATION, ETC ===================================================== */
+@import "vars";
+@import "inuit.css/inuit";
+@import "animate-custom.css";
+@import "nprogress.css";
+@import "entypo.css";
+
+
+/* GLOBAL COMPONENTS ====================================================== */
+body {
+  line-height: 1.375em;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: #add1ed;  // LOL
+  text-shadow: none;
+  color: $brand-color;
+}
+a {
+  cursor: pointer;
+  color: $active-color;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+pre, code, #lists {
+  font-family: $code-face;
+}
+.disable-hover, .disable-hover * {
+  // Improves scroll performance (especially on mobile).
+  // Refer to <thecssninja.com/javascript/pointer-events-60fps>
+  pointer-events: none !important;
+}
+img.loading {
+  opacity: 0.3;
+}
+#taglineTyper {
+  min-height: $base-line-height;
+}
+
+
+/* HEADER ================================================================= */
+#header {
+  padding: 1em 20px;
+  background-color: $base-ui-color;
+  color: $base-color;
+  .media__img {
+    margin-right: 10px;
+  }
+  h1 {
+    font: 100 1.75em/46px $brand-face;
+    white-space: nowrap;
+  }
+}
+
+
+/* CONTENT BODY =========================================================== */
+.wrapper {
+  padding: 0 20px;
+  //background-color: $brand-color;
+}
+footer {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.375em 20px 1em;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: lighten($base-ui-color, 50);
+  text-align: justify;
+  line-height: 1.5em;
+  p {
+    border-top: 1px solid lighten($base-ui-color, 50);
+  }
+  a {
+    font-weight: bold;
+    color: lighten($base-ui-color, 50);
+    &:hover {
+      color: $active-color;
+    }
+  }
+  &:hover {
+    color: lighten($base-ui-color, 30);
+    a {
+      color: lighten($base-ui-color, 10);
+    }
+  }
+}
+
+
+/* RESPONSIVE STYLES ====================================================== */
+@include media-query(desk) {
+  .wrapper {
+    //box-sizing: border-box;
+    margin: 0;
+    padding-left: 250px;
+    //height: 200vh;  // (?)
+  }
+}
