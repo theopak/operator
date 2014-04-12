@@ -2787,8 +2787,13 @@ label,
 /* endif */
 /* GLOBAL COMPONENTS ====================================================== */
 body {
+  box-sizing: border-box;
+  margin: 0 auto;
+  min-height: 100%;
   line-height: 1.375em;
-  text-rendering: optimizeLegibility; }
+  text-rendering: optimizeLegibility;
+  background: url(../img/79H_export.jpg) no-repeat center fixed;
+  background-size: cover; }
 
 ::selection {
   background: #add1ed;
@@ -2803,8 +2808,8 @@ a {
   a:hover {
     text-decoration: underline; }
 
-pre, code, #lists {
-  font-family: "Courier New", monospace, serif; }
+pre, code, input {
+  font-family: "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
 
 .disable-hover, .disable-hover * {
   pointer-events: none !important; }
@@ -2824,27 +2829,36 @@ img.loading {
     font: 700 1.75em/46px "Bitter";
     white-space: nowrap; }
   #header h2 {
-    font: italic 1em/1.25em 'Open Sans',sans-serif; }
+    font: italic 1em/1.25em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
 
 /* CONTENT BODY =========================================================== */
 .wrapper {
-  padding: 0 20px; }
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center; }
 
-section {
-  padding: 0 20px 2em; }
+section input {
+  padding: 0.375em 0.5em;
+  width: 100%;
+  border: 1px solid #919191;
+  background-color: #919191;
+  transition: all 0.25s ease-in-out;
+  font-family: "Courier New", monospace, serif; }
+  section input:focus {
+    border-color: #428bca;
+    background-color: #c4c4c4; }
 
+/* FOOTER ================================================================= */
 footer {
-  margin-left: 0;
-  margin-right: 0;
-  padding: 0.375em 20px 1em;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  color: #c4c4c4;
-  text-align: justify;
-  line-height: 1.5em; }
+  position: absolute;
+  bottom: 0;
+  padding: 0.375em 20px 0.75em;
+  width: 100%;
+  font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
+  text-align: center;
+  color: #c4c4c4; }
   footer p {
-    border-top: 1px solid #c4c4c4; }
+    margin: 0; }
   footer a {
     font-weight: bold;
     color: #c4c4c4; }
@@ -2857,5 +2871,6 @@ footer {
 
 /* RESPONSIVE STYLES ====================================================== */
 @media only screen and (min-width: 780px) {
-  .wrapper {
-    margin: 0; } }
+  header, .wrapper, footer {
+    max-width: 480px;
+    font-size: 1.2em; } }

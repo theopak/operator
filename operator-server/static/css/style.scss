@@ -14,8 +14,13 @@
 
 /* GLOBAL COMPONENTS ====================================================== */
 body {
+  box-sizing: border-box;
+  margin: 0 auto;
+  min-height: 100%;
   line-height: 1.375em;
   text-rendering: optimizeLegibility;
+  background: url(../img/79H_export.jpg) no-repeat center fixed;
+  background-size: cover;
 }
 ::selection {
   background: #add1ed;  // LOL
@@ -31,8 +36,8 @@ a {
     text-decoration: underline;
   }
 }
-pre, code, #lists {
-  font-family: $code-face;
+pre, code, input {
+  font-family: $instructions-face;
 }
 .disable-hover, .disable-hover * {
   // Improves scroll performance (especially on mobile).
@@ -59,31 +64,46 @@ img.loading {
     white-space: nowrap;
   }
   h2 {
-    font: italic 1em/1.25em 'Open Sans',sans-serif;
+    font: italic 1em/1.25em $instructions-face;
   }
 }
 
 
 /* CONTENT BODY =========================================================== */
 .wrapper {
+  margin: 0 auto;
   padding: 0 20px;
   //background-color: $brand-color;
+  text-align: center;
 }
 section {
-  padding: 0 20px 2em;
+  input {
+    padding: 0.375em 0.5em;
+    width: 100%;
+    border: 1px solid lighten($base-ui-color, 30);
+    background-color: lighten($base-ui-color, 30);
+    transition: all 0.25s ease-in-out;
+    font-family: $input-face;
+    &:focus {
+      border-color: $active-color;
+      background-color: lighten($base-ui-color, 50);
+    }
+  }
 }
+
+
+/* FOOTER ================================================================= */
 footer {
-  margin-left: 0;
-  margin-right: 0;
-  padding: 0.375em 20px 1em;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  position: absolute;
+  bottom: 0;
+  padding: 0.375em 20px 0.75em;
+  width: 100%;
+  font: italic 1em $instructions-face;
+  text-align: center;
   color: lighten($base-ui-color, 50);
-  text-align: justify;
-  line-height: 1.5em;
   p {
-    border-top: 1px solid lighten($base-ui-color, 50);
+    //border-top: 1px solid lighten($base-ui-color, 50);
+    margin: 0;
   }
   a {
     font-weight: bold;
@@ -103,9 +123,8 @@ footer {
 
 /* RESPONSIVE STYLES ====================================================== */
 @include media-query(desk) {
-  .wrapper {
-    //box-sizing: border-box;
-    margin: 0;
-    //height: 200vh;  // (?)
+  header, .wrapper, footer {
+    max-width: 480px;
+    font-size: 1.2em;
   }
 }
