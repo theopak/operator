@@ -2,18 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Operator</title>
+    <title>HappyOperator</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimal-ui">
     <meta name="mobile-web-app-capable" content="yes">
-    <link href='http://fonts.googleapis.com/css?family=Bitter:700|Open+Sans:400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bitter:700|Open+Sans:400,400italic' rel='stylesheet' type='text/css'>
     <link href="static/css/style.css" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body id="top">
 
 
     <header id="header">
-      <h1>Operator</h1>
-      <h2>Hello! <br/>Who can I call for you?</h2>
+      <h1>HappyOperator</h1>
+      <h2>Need me to call someone for you? <br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
     </header>
 
     <div class="wrapper">
@@ -23,7 +23,19 @@
           <div class="g one-whole">
             <ul class="form-fields">
                <li>
-                 <input type="text" class="text-input" placeholder="Type name or number&hellip;">
+                  <label>Who can I call for you?</label>
+                  <input type="text" class="input text-input" placeholder="Type name or number&hellip;">
+                  <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
+               </li>
+               <li>
+                  <label>What language do you speak?</label>
+                  <input type="text" class="input text-input" placeholder="Type name or number&hellip;">
+                  <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
+               </li>
+               <li>
+                  <label>And what seems to be the problem?</label>
+                  <textarea class="input " placeholder="Type a full sentance."></textarea>
+                  <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
                </li>
             </ul>
           </div>
@@ -45,6 +57,26 @@
     <script src="static/js/jquery.smooth-scroll.min.js" charset="utf-8"></script>
     <script>
 
+      // Focus forward/back
+      $('.form-fields input').on('focus', function(e){
+        $(this).parent().addClass('active');
+      });
+      $('.form-fields input').on('blur', function(e){
+        $(this).parent().removeClass('active');
+      });
+      $('.form-fields .next').click(function(e){
+        $(this).parent().parent().next('li').find('.input').focus();
+      });
+      $('.form-fields .input').bind('keyup', function(e){
+        // Use [Backspace, Left, Up] and [Enter, Right, Down]
+        //   to iterative the form appropriately
+        if(e.keyCode==8 || /*e.keyCode==37 ||*/ e.keyCode==38) {
+          $(this).parent().prev('li').find('.input').focus();
+        } else if(e.keyCode==13 || /*e.keyCode==39 ||*/ e.keyCode==40) {
+          $(this).parent().next('li').find('.input').focus();
+        } 
+      });
+
       $(document).ready(function(){
 
         // Faster scrolling
@@ -64,6 +96,10 @@
           offset: -50
         });
 
+        // Select first form
+        $('.wrapper .form-fields li').first().addClass('active');
+        $('.wrapper .form-fields li input').first().focus();
+
       });
 
       // Google Analytics
@@ -73,9 +109,6 @@
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
       //ga('create', 'UA-xxxxxx', 'operator.com');
       ga('send', 'pageview');
-
-      // Fancy charts and lists etc
-      getData();
 
     </script>
 

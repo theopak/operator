@@ -1362,7 +1362,7 @@ td {
  */
 .table--bordered th,
 .table--bordered td {
-  border: 1px solid #444444; }
+  border: 1px solid #333333; }
   .table--bordered th:empty,
   .table--bordered td:empty {
     border: none; }
@@ -1804,6 +1804,199 @@ label,
  */
 .icon-text--rev > .icon-text__icon {
   margin-left: 6px; }
+
+/*------------------------------------*\
+    $BEAUTONS.CSS
+\*------------------------------------*/
+/**
+ * beautons is a beautifully simple button toolkit.
+ *
+ * LICENSE
+ * 
+ * Copyright 2013 Harry Roberts
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ */
+/*!*
+ * 
+ * @csswizardry -- csswizardry.com/beautons
+ * 
+ */
+/*------------------------------------*\
+    $BASE
+\*------------------------------------*/
+/**
+ * Base button styles.
+ *
+ * 1. Allow us to better style box model properties.
+ * 2. Line different sized buttons up a little nicer.
+ * 3. Stop buttons wrapping and looking broken.
+ * 4. Make buttons inherit font styles.
+ * 5. Force all elements using beautons to appear clickable.
+ * 6. Normalise box model styles.
+ * 7. If the button’s text is 1em, and the button is (3 * font-size) tall, then
+ *    there is 1em of space above and below that text. We therefore apply 1em
+ *    of space to the left and right, as padding, to keep consistent spacing.
+ * 8. Basic cosmetics for default buttons. Change or override at will.
+ * 9. Don’t allow buttons to have underlines; it kinda ruins the illusion.
+ */
+.btn {
+  display: inline-block;
+  /* [1] */
+  vertical-align: middle;
+  /* [2] */
+  white-space: nowrap;
+  /* [3] */
+  font-family: inherit;
+  /* [4] */
+  font-size: 100%;
+  /* [4] */
+  cursor: pointer;
+  /* [5] */
+  border: none;
+  /* [6] */
+  margin: 0;
+  /* [6] */
+  padding-top: 0;
+  /* [6] */
+  padding-bottom: 0;
+  /* [6] */
+  line-height: 3;
+  /* [7] */
+  padding-right: 1em;
+  /* [7] */
+  padding-left: 1em;
+  /* [7] */
+  border-radius: 50%;
+  /* [8] */ }
+
+.btn, .btn:hover {
+  text-decoration: none;
+  /* [9] */ }
+.btn:active, .btn:focus {
+  outline: none; }
+
+/*------------------------------------*\
+    $SIZES
+\*------------------------------------*/
+/**
+ * Button size modifiers.
+ *
+ * These all follow the same sizing rules as above; text is 1em, space around it
+ * remains uniform.
+ */
+.btn--small {
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  line-height: 2; }
+
+.btn--large {
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  line-height: 4; }
+
+.btn--huge {
+  padding-right: 2em;
+  padding-left: 2em;
+  line-height: 5; }
+
+/**
+ * These buttons will fill the entirety of their container.
+ *
+ * 1. Remove padding so that widths and paddings don’t conflict.
+ */
+.btn--full {
+  width: 100%;
+  padding-right: 0;
+  /* [1] */
+  padding-left: 0;
+  /* [1] */
+  text-align: center; }
+
+/*------------------------------------*\
+    $FONT-SIZES
+\*------------------------------------*/
+/**
+ * Button font-size modifiers.
+ */
+.btn--alpha {
+  font-size: 3rem; }
+
+.btn--beta {
+  font-size: 2rem; }
+
+.btn--gamma {
+  font-size: 1rem; }
+
+/**
+ * Make the button inherit sizing from its parent.
+ */
+.btn--natural {
+  vertical-align: baseline;
+  font-size: inherit;
+  line-height: inherit;
+  padding-right: 0.5em;
+  padding-left: 0.5em; }
+
+/*------------------------------------*\
+    $FUNCTIONS
+\*------------------------------------*/
+/**
+ * Button function modifiers.
+ */
+/**
+ * Positive actions; e.g. sign in, purchase, submit, etc.
+ */
+.btn--positive {
+  background-color: #4A993E;
+  color: #fff; }
+
+/**
+ * Negative actions; e.g. close account, delete photo, remove friend, etc.
+ */
+.btn--negative {
+  background-color: #b33630;
+  color: #fff; }
+
+/**
+ * Inactive, disabled buttons.
+ * 
+ * 1. Make the button look like normal text when hovered.
+ */
+.btn--inactive,
+.btn--inactive:hover,
+.btn--inactive:active,
+.btn--inactive:focus {
+  background-color: #ddd;
+  color: #777;
+  cursor: text;
+  /* [1] */ }
+
+/*------------------------------------*\
+    $STYLES
+\*------------------------------------*/
+/**
+ * Button style modifiers.
+ *
+ * 1. Use an overly-large number to ensure completely rounded, pill-like ends.
+ */
+.btn--soft {
+  border-radius: 200px;
+  /* [1] */ }
+
+.btn--hard {
+  border-radius: 0; }
 
 /**
  * Style trumps; helper and brand classes
@@ -2817,36 +3010,73 @@ pre, code, input {
 img.loading {
   opacity: 0.3; }
 
-#taglineTyper {
-  min-height: 24px; }
+.entypo {
+  font-size: 2em;
+  line-height: 0.5em;
+  vertical-align: middle; }
 
 /* HEADER ================================================================= */
-#header {
+header {
   margin: 0 auto;
   padding: 1em 20px;
+  color: #333333;
   text-align: center; }
-  #header h1 {
-    font: 700 1.75em/46px "Bitter";
+  header h1 {
+    font: 700 1.75em "Bitter";
     white-space: nowrap; }
-  #header h2 {
-    font: italic 1em/1.25em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
+  header h2 {
+    font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
+    header h2 emph {
+      display: block;
+      clear: both;
+      font-size: 1.5em; }
 
 /* CONTENT BODY =========================================================== */
 .wrapper {
-  margin: 0 auto;
+  margin: 0 auto 3em;
   padding: 0 20px;
   text-align: center; }
 
-section input {
-  padding: 0.375em 0.5em;
+ul.form-fields li {
+  margin-bottom: 3em;
+  text-align: left; }
+
+label, input, textarea, .extra-help {
+  margin: 0 0.5em;
+  padding: 0.375em 0 0.125em;
   width: 100%;
-  border: 1px solid #919191;
-  background-color: #919191;
-  transition: all 0.25s ease-in-out;
+  color: #666666;
+  transition: all 0.25s ease-in-out; }
+
+.active label, label:focus,
+.active input, input:focus,
+.active textarea, textarea:focus,
+.active .extra-help, .next {
+  color: #333333;
+  outline: none; }
+
+label {
+  font-style: italic;
+  font-family: "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
+
+input, textarea {
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
   font-family: "Courier New", monospace, serif; }
-  section input:focus {
-    border-color: #428bca;
-    background-color: #c4c4c4; }
+  input:focus, textarea:focus {
+    border-bottom-color: #333333; }
+
+.extra-help {
+  padding: 0; }
+
+.next {
+  padding-left: 0;
+  vertical-align: top;
+  font: normal 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
+  transition: none; }
+  .next:hover {
+    text-decoration: none; }
 
 /* FOOTER ================================================================= */
 footer {
@@ -2856,21 +3086,18 @@ footer {
   width: 100%;
   font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
   text-align: center;
-  color: #c4c4c4; }
+  color: #b3b3b3; }
   footer p {
     margin: 0; }
   footer a {
     font-weight: bold;
-    color: #c4c4c4; }
+    color: #b3b3b3; }
     footer a:hover {
       color: #428bca; }
-  footer:hover {
-    color: #919191; }
-    footer:hover a {
-      color: #5e5e5e; }
 
 /* RESPONSIVE STYLES ====================================================== */
 @media only screen and (min-width: 780px) {
   header, .wrapper, footer {
+    margin-left: 20px;
     max-width: 480px;
     font-size: 1.2em; } }
