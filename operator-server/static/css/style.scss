@@ -49,15 +49,17 @@ img.loading {
 
 /* HEADER ================================================================= */
 #header {
+  margin: 0 auto;
   padding: 1em 20px;
-  background-color: $base-ui-color;
-  color: $base-color;
-  .media__img {
-    margin-right: 10px;
-  }
+  //background-color: $base-ui-color;
+  text-align: center;
+  //color: $base-color;
   h1 {
-    font: 100 1.75em/46px $brand-face;
+    font: 700 1.75em/46px $brand-face;
     white-space: nowrap;
+  }
+  h2 {
+    font: italic 1em/1.25em 'Open Sans',sans-serif;
   }
 }
 
@@ -66,6 +68,9 @@ img.loading {
 .wrapper {
   padding: 0 20px;
   //background-color: $brand-color;
+}
+section {
+  padding: 0 20px 2em;
 }
 footer {
   margin-left: 0;
@@ -101,7 +106,6 @@ footer {
   .wrapper {
     //box-sizing: border-box;
     margin: 0;
-    padding-left: 250px;
     //height: 200vh;  // (?)
   }
 }
