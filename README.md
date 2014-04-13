@@ -1,7 +1,8 @@
 # [Operator](http://happyoperator.com)
 
-_"Hello! Who would you like to call?"_ I let you know when a real human is ready to take your call.
+_"Hello! Who would you like to call?"_ I let you know when a real human is ready to speak with you.
 
+![](assets/DSC_0259.JPG)
 
 ## Purpose
 

@@ -38,10 +38,58 @@ function appendOptions (event) {
     $('ul.form-fields').append(op_li);
   }
   else {
-    //optionsComplete();
+    optionsComplete();
   }
   event.preventDefault();
   return false;
+}
+
+function optionsComplete() {
+  var new_button = $('<li><label></label><a href="#" class="text-input btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a></li>');
+  new_button.appendTo('ul.form-fields');
+
+  // Submit data
+  $('#submit').on('click', function(e){
+
+    // Build the payload
+    var payload = {};
+    $('form#app').find("input, textarea, .text-input").each(function() {
+      payload[this.name] = $(this).val();
+    });
+    payload['phone'] = '+1 ' + payload['phone'];
+    payload['sequence'] = sequence;
+    payload = JSON.stringify(payload);
+
+    // Hide field entry
+    $('#intro').fadeOut();
+    $('.form-fields li').each(function(){ $(this).fadeOut(); });
+
+    // POST to the application
+    var jqxhr = $.ajax({
+      type: 'POST',
+      url: '/outbound/new',
+      contentType: "application/json;charset=UTF-8",  // request
+      data: payload,
+      accepts: "application/json",  // response
+      cache: false
+    })
+    .done(function() {
+      console.log('done.');
+      $('.wrapper').append("<p>Got it! I'll give you a call when they're ready. And keep an eye on your email for the transcript.</p>");
+    })
+    .fail(function(response) {
+      console.log('fail.');
+      $('.form-fields li').each(function(){ $(this).fadeIn(); });
+      $('.form-fields li').last().append("<label>Something bad happened :(</label>");
+    })
+    .always(function(response) {
+      console.log('request: '  + payload);
+      console.log('response: ' + response);
+    });
+
+
+  });
+
 }
 
 // Serialize form for submission as JSON object.
@@ -157,7 +205,7 @@ $(document).ready(function(){
         $('ul.form-fields').append(op_li);
       }
       else {
-        //optionsComplete();
+        optionsComplete();
       }
     });
     /* End bad code */
@@ -201,48 +249,6 @@ $(document).ready(function(){
       .removeClass('hidden')
       .find('.text-input').first().focus();
   }});
-
-  // Submit data
-  $('#submit').on('click', function(e){
-
-    // Build the payload
-    var payload = {};
-    $('form#app').find("input, textarea, .text-input").each(function() {
-      payload[this.name] = $(this).val();
-    });
-    payload['phone'] = '+1 ' + payload['phone'];
-    payload['sequence'] = $('#sequence-1').val();
-    payload = JSON.stringify(payload);
-
-    // Hide field entry
-    $('#intro').fadeOut();
-    $('.form-fields li').each(function(){ $(this).fadeOut(); });
-
-    // POST to the application
-    var jqxhr = $.ajax({
-      type: 'POST',
-      url: '/outbound/new',
-      contentType: "application/json;charset=UTF-8",  // request
-      data: payload,
-      accepts: "application/json",  // response
-      cache: false
-    })
-    .done(function() {
-      console.log('done.');
-      $('.wrapper').append("<p>Got it! I'll give you a call when they're ready. And keep an eye on your email for the transcript.</p>");
-    })
-    .fail(function(response) {
-      console.log('fail.');
-      $('.form-fields li').each(function(){ $(this).fadeIn(); });
-      $('.form-fields li').last().append("<label>Something bad happened :(</label>");
-    })
-    .always(function(response) {
-      console.log('request: '  + payload);
-      console.log('response: ' + response);
-    });
-
-
-  });
 
 });
 
