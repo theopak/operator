@@ -74,7 +74,11 @@ $(document).ready(function(){
   });
   $('.form-fields .next').on('click', function(e){
     console.log('button click will result in focus.');
-    $(this).parent().next('li').find('.input').first().focus();
+    $(this).parentsUntil('li.active').first().parent().next('li.hidden')
+    //$('li.active').not('.hidden').last().next('li')
+      .removeClass('hidden')
+      .addClass('active')
+        .find('.input').first().focus();
   });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
