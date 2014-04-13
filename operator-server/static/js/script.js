@@ -113,6 +113,10 @@ $(document).ready(function(){
   // Initialize state
   var focusHeight = $('.form-fields input').first().offset().top;
   console.log('focusHeight = ' + focusHeight);
+  $('form#app>ul>li').addClass('.hidden');
+  $('form#app>ul>li').first()
+    .removeClass('.hidden')
+    .addClass('active');
   $('form#app .text-input').first().focus();
 
   // Mask input
@@ -130,7 +134,7 @@ $(document).ready(function(){
     $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
-    payload['phone'] = '+1' + payload['phone'];
+    payload['phone'] = '+1 ' + payload['phone'];
     payload['sequence'] = $('#sequence-1').val();
     payload = JSON.stringify(payload);
 
@@ -153,6 +157,7 @@ $(document).ready(function(){
     })
     .fail(function(response) {
       console.log('fail.');
+      $('.form-fields li').each(function(){ $(this).fadeIn(); });
       $('.form-fields li').last().append("<label>Something bad happened :(</label>");
     })
     .always(function(response) {

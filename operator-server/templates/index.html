@@ -21,30 +21,22 @@
 
       <form id="app" class="animated fadeIn">
         <ul class="form-fields">
-           <li class="active">
+           <li>
               <label>How can I reach you?</label>
               <input type="tel" name="phone" class="text-input" placeholder="(800) 555-5555"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
-           <li class="hidden">
+           <li>
               <label>Where should I email the transcript?</label>
               <input data-next="#outbound" type="email" name="email" class="text-input" placeholder="your-email@example.com"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
-           <li class="hidden">
+           <li>
               <label>Who can I call for you?</label>
               <input type="text" name="outbound" id="outbound" class="text-input typeahead" autocomplete="off" placeholder="Type name or number&hellip;"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
            </li>
-           <li class="hidden">
-              <label>What language do you speak?</label>
-              <select id="selection-1">
-               <option value="1">English</option>
-               <option value="2">Espa&ntilde;ol</option>
-             </select>
-              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
-           </li>
-           <li class="hidden">
+           <li>
               <label></label>
               <a href="#" class="text-input btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a>
            </li>
