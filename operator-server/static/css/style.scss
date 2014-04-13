@@ -14,7 +14,6 @@
 
 /* GLOBAL COMPONENTS ====================================================== */
 body {
-  box-sizing: border-box;
   margin: 0 auto;
   min-height: 100%;
   line-height: 1.375em;
@@ -59,6 +58,7 @@ img.loading {
 
 /* HEADER ================================================================= */
 header {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   margin: 0 auto;
@@ -75,18 +75,20 @@ header {
     text-shadow: 0 1px 0 $brand-color;
     white-space: nowrap;
   }
-  &.sticket {
-    position: fixed;
-    top: 0;
+  a {
+    color: $base-ui-color;
+    text-decoration: none !important;
   }
 }
 
 
 /* CONTENT BODY =========================================================== */
 .wrapper {
-  margin: 3.5em+1em auto 3em;
-  padding: 0 20px 5em;
-  //background-color: $brand-color;
+  box-sizing: border-box;
+  margin: 3.5em+1em auto 0;
+  padding: 2em 20px 8em;
+  max-width: 540px;
+  background-color: $brand-color;
   text-align: center;
   p {
     font: italic 1em/1.5em $instructions-face;
@@ -223,9 +225,11 @@ footer {
 
 /* RESPONSIVE STYLES ====================================================== */
 @include media-query(desk) {
-  header, .wrapper, footer {
-    margin-left: 30px;
-    max-width: 480px;
+  body {
     font-size: 1.2em;
+  }
+  .wrapper {
+    padding-left: 2em;
+    padding-right: 2em;
   }
 }
