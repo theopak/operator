@@ -148,6 +148,7 @@ $(document).ready(function(){
 
       if (options) {
         var op_li = $('<li/>').addClass('optgroup');
+        op_li.append('<label>Please select an option:</label>');
         for (var option in options) {
           console.log('op3', options[option].options);
           var new_a = $('<a href="#"><span class="num">'+options[option].button+'</span> '+options[option].title+'</a>').data('options', options[option].options).click(appendOptions);

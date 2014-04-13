@@ -125,6 +125,7 @@ label, input, textarea, select, .optgroup a, .extra-help, .btn {
   transition: all 0.25s ease-in-out;
 }
 li.optgroup a {
+  display: block;
   padding-bottom: 10px;
 }
 span.num {
