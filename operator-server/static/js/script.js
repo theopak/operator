@@ -11,7 +11,7 @@ var companies = new Bloodhound({
   remote: '/companies/search/%QUERY'
 });
 companies.initialize();
-$('#input-name').typeahead({
+$('#outbound').typeahead({
   minLength: 1,
   highlight: true,
 },
@@ -113,10 +113,14 @@ $(document).ready(function(){
   // Initialize state
   var focusHeight = $('.form-fields input').first().offset().top;
   console.log('focusHeight = ' + focusHeight);
-  $('#input-name').focus();
+  $('form#app .text-input').first().focus();
 
   // Mask input
-  $("[type='tel']").mask("(999) 999-9999", {placeholder: " "});
+  $("[type='tel']").mask("(999) 999-9999", {placeholder: " ", completed: function(){
+    $(this).parent().next('li')
+      .removeClass('hidden')
+      .find('.text-input').first().focus();
+  }});
 
   // Submit data
   $('#submit').on('click', function(e){
@@ -126,8 +130,8 @@ $(document).ready(function(){
     $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
-    payload['input-phone'] = '+1' + payload['input-phone'];
-    payload['input-sequence'] = $('#input-sequence-1').val();
+    payload['phone'] = '+1' + payload['phone'];
+    payload['sequence'] = $('#sequence-1').val();
     payload = JSON.stringify(payload);
 
 
