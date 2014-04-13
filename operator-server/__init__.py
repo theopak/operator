@@ -31,7 +31,10 @@ def company_search(query):
 @app.route('/companies/info/<query>')
 def company_info(query):
     company = mongo.db.companies.find_one({'name': query})
-    return json.dumps(company, default=json_util.default, ensure_ascii=False)
+    if company:
+        return json.dumps(company, default=json_util.default, ensure_ascii=False)
+    else:
+        return json.dumps({'error': True})
 
 
 @app.route('/outbound/', methods=['GET'])

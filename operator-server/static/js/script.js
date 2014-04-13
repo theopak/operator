@@ -64,7 +64,7 @@ $(document).ready(function(){
       scrollTarget: target,
       speed: 200
     });
-    delay(200);
+    // delay(200);
     target.addClass('active')
     console.log('focused.');
   });
@@ -81,10 +81,30 @@ $(document).ready(function(){
     $(this).parentsUntil('li.active').first().parent()
       .next('li.hidden .text-input').focus();
   });
+  $(document).on('typeahead:opened', function() {
+    $('.company-not-found').html("");
+  });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
     $('li.active').removeClass('active').next('li').find('.text-input')
       .focus();
+
+    /* Begin bad code */
+    var company_name = $('#input-name').val();
+    $(this).next('li').removeClass('hidden');
+    $.getJSON('/companies/info/' + company_name, function (data) {
+      if (data.error) {
+        console.log($);
+        $('.company-not-found').html("No data found for this company.");
+      }
+      var options = data.options;
+
+      for (var option in options) {
+        $('ul.form-fields').append('<li>'+options[option].title+'</li>');
+      }
+    });
+    /* End bad code */
+
   });
   $('.form-fields .text-input').bind('keydown', function(event){
     // Use [Up, Shift+Tab] and [Tab, Enter, Down]
