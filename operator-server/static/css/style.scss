@@ -86,16 +86,27 @@ section {
 }
 ul.form-fields {
   li {
+    position: relative;
     margin-bottom: 3em;
     text-align: left;
   }
 }
 label, input, textarea, .extra-help {
+  box-sizing: border-box;
   margin: 0 0.5em;
-  padding: 0.375em 0 0.125em;
+  padding: 0.375em 0.125em 0.125em;
   width: 100%;
   color: lighten($base-ui-color, 20);
   transition: all 0.25s ease-in-out;
+}
+.extra-help {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding-top: 0;
+  width: auto;
+  line-height: 1.5em;
 }
 .active label, label:focus, 
 .active input, input:focus, 
@@ -113,6 +124,7 @@ input, textarea {
   border-bottom: 1px solid transparent;
   background: transparent;
   font-family: $input-face;
+  //text-shadow: 0 -1px 0 lighten($base-ui-color, 20);
   &:focus {
     border-bottom-color: $base-ui-color;
   }
@@ -120,17 +132,35 @@ input, textarea {
   //   color due to outsanding browser bugs. Maybe there's a 
   //   readability issue or something? idk whatevs.
 }
-.extra-help {
-  padding: 0;
-}
 .next {
+  display: block;
   padding-left: 0;
+  width: 1em;
+  text-align: center;
   vertical-align: top;
   font: normal 1em $instructions-face;
+  font-style: normal;
   transition: none;  // The parent already transitions.
   &:hover {
     text-decoration: none;
   }
+}
+
+
+/* TWITTER TYPEAHEAD ====================================================== */
+.twitter-typeahead {
+  width: 100%;
+}
+.tt-dropdown-menu {
+  margin: 0 0.5em;
+  width: 100%;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #ccc;
+}
+input.tt-hint {
+  color: lighten($base-ui-color, 30);
 }
 
 
