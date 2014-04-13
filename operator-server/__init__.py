@@ -1,7 +1,10 @@
 from flask import render_template, request, jsonify, Response
 import json
+import sendgrid
 from bson import json_util
+from bson.objectid import ObjectId
 import op
+import urllib2
 
 from settings import *
 
@@ -55,6 +58,7 @@ def handle_outbound():
     document = request.get_json(force=True)
     name = document['input-name']
     phone = document['input-number']
+    email = document['input-email']
     sequence = document['sequence']
 
     sequence = ['w' + x for x in sequence]
@@ -62,28 +66,47 @@ def handle_outbound():
     sequence = 'wwww' + sequence
 
     business = mongo.db.companies.find_one({'name': name})
-    op.place_call("+16034756914", sequence)
 
     # Add each dimension to the collection as a unique document
-    #refs = mongo.db.initiatedCalls.insert(document)
+    ref = mongo.db.initiatedCalls.insert({
+        "user_phone": phone,
+        "user_email": email,
+    })
+
+    print "REF", ref
+    op.place_call(business['phone'], ref, sequence)
 
     # Return success
     data = {'result': 'success'}
     return json.dumps(data, default=json_util.default)
 
-@app.route('/inbound/connected/<sequence>', methods=['POST', 'PUT'])
-def handle_inbound(sequence):
+@app.route('/inbound/connected/<uid>/<sequence>', methods=['POST', 'PUT'])
+def handle_inbound(uid, sequence):
     sid = request.form['CallSid']
-    print "CallSid", sid
-    return Response(op.press_buttons(sid, sequence), mimetype="text/xml")
+    return Response(op.press_buttons(sid, uid, sequence), mimetype="text/xml")
 
-@app.route('/inbound/waiting', methods=['POST', 'PUT'])
-def handle_wait():
-    return Response(op.loop_human_check(), mimetype="text/xml")
+@app.route('/inbound/waiting/<uid>', methods=['POST', 'PUT'])
+def handle_wait(uid):
+    return Response(op.loop_human_check(uid), mimetype="text/xml")
 
-@app.route('/inbound/complete')
-def handle_complete():
-    return Response(op.call_user(), mimetype="text/xml")
+@app.route('/inbound/complete/<uid>')
+def handle_complete(uid):
+    print uid
+    user_phone = mongo.db.initiatedCalls.find_one({'_id': ObjectId(uid)})
+    print user_phone
+    user_phone = user_phone['user_phone']
+    return Response(op.call_user(user_phone, uid), mimetype="text/xml")
+
+@app.route('/inbound/record-complete/<uid>', methods=['POST', 'PUT'])
+def handle_record_complete(uid):
+    user_email = mongo.db.initiatedCalls.find_one({'_id': ObjectId(uid)})['user_email']
+    recording = urllib2.urlopen(request.form['RecordingUrl'])
+    message = sendgrid.Mail(to=user_email, subject='Your Operator Recording', text=request.form['TranscriptionText'], from_email='no-reply@happyoperator.com')
+    message.add_attachment_stream("recording.mp3", recording.read())
+    status, msg = sg.send(message)
+
+    return ""
+
 
 if __name__ == "__main__":
     app.debug = True  # Do not enable Debug mode on the production server!
