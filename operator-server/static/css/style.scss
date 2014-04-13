@@ -21,6 +21,7 @@ body {
   text-rendering: optimizeLegibility;
   background: url(../img/79H_export.jpg) no-repeat center fixed;
   background-size: cover;
+  overflow: hidden;
 }
 ::selection {
   background: #add1ed;  // LOL
@@ -96,14 +97,18 @@ ul.form-fields {
     position: relative;
     margin-bottom: 3em;
     text-align: left;
+    transition: all 1s ease-in-out;
   }
+}
+.hidden {
+  display: none;
 }
 label, input, textarea, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
   width: 100%;
-  color: lighten($base-ui-color, 20);
+  color: lighten($base-ui-color, 10);
   transition: all 0.25s ease-in-out;
 }
 .extra-help {
@@ -119,7 +124,7 @@ label, input, textarea, .extra-help, .btn {
 .active input, input:focus, 
 .active textarea, textarea:focus,
 .active .extra-help, 
-.next, .btn {
+.next, .btn:hover, .btn:focus {
   color: $base-ui-color;
   outline: none;
 }
@@ -164,11 +169,12 @@ input, textarea {
 }
 .tt-dropdown-menu {
   margin: 0 0.5em;
+  padding: 0.125em;
   width: 100%;
-  max-height: 150px;
+  //max-height: 150px;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #ccc;
+  font-family: $input-face;
 }
 input.tt-hint {
   color: lighten($base-ui-color, 30);
