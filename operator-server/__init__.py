@@ -65,10 +65,10 @@ def handle_outbound():
     op.place_call(business['phone'], sequence)
 
     # Add each dimension to the collection as a unique document
-    # refs = mongo.db.initiatedCalls.insert(document)
+    #refs = mongo.db.initiatedCalls.insert(document)
 
     # Return success
-    data = {'result': 'success', 'results': refs}
+    data = {'result': 'success'}
     return json.dumps(data, default=json_util.default)
 
 @app.route('/inbound/connected/<sequence>', methods=['POST', 'PUT'])
