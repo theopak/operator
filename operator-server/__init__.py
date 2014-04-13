@@ -23,10 +23,20 @@ def company_search(query):
     }))
     return json.dumps(results, default=json_util.default, ensure_ascii=False)
 
+
 @app.route('/companies/info/<query>')
 def company_info(query):
     company = mongo.db.companies.find_one({'name': query})
     return json.dumps(company, default=json_util.default, ensure_ascii=False)
+
+
+@app.route('/outbound/', methods=['GET'])
+def list_outbound():
+    '''
+    Return a list of all outbound calls logged in the db.
+    '''
+    refs = list(mongo.db.initiatedCalls.find())
+    return json.dumps(refs, default=json_util.default)
 
 
 @app.route('/outbound/new', methods=['POST', 'PUT'])
@@ -35,25 +45,27 @@ def handle_outbound():
     Place an outbound call.
     '''
 
-    # Useful for debugging
-    print request.form
-    document = request.form[0]
-
     # Detect and handle errors
     if request.form.keys() < 1:
-        error = "PUT/POST JSON object (application/x-www-form-urlencoded)."
+        error = "PUT/POST JSON object (application/json preferred) (application/x-www-form-urlencoded)."
         return render_template('error.html', error=error)
 
-    name = request.form['input-name']
-    phone = request.form['input-number']
-    sequence = request.form['sequence']
+    # Load data as JSON
+    document = request.get_json(force=True)
+    print document
+    name = document['input-name']
+    phone = document['input-number']
+    sequence = document['sequence']
 
     # Add each dimension to the collection as a unique document
     refs = mongo.db.initiatedCalls.insert(document)
 
     # Return success
-    data = {'result': 'success'}
+    data = {'result': 'success', 'results': refs}
     return json.dumps(data, default=json_util.default)
+
+    #[('{"1":"","":"","input-name":"Theo Pak","input-problem":"","input-number":"","input-email":""}', u'')]
+
 
 
 if __name__ == "__main__":
