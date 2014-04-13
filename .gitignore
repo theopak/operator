@@ -36,5 +36,6 @@ nosetests.xml
 .pydevproject
 .DS_Store
 *.sublime-*
+.sass-cache*
 
 settings.py
