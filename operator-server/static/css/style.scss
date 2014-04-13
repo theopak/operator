@@ -65,6 +65,7 @@ header {
   padding: 1em 20px;
   width: 100%;
   color: $base-ui-color;
+  background-color: $neutral-color;
   text-align: center;
   //z-index: 99;  // don't let the header cofer clickable content!
   h1 {
@@ -111,11 +112,36 @@ ul.form-fields {
 .hidden {
   display: none;
 }
-label, input, textarea, .extra-help, .btn {
+li.optgroup {
+  a {
+    color: white;
+    display: block;
+    padding: 10px;
+    border: solid 1px transparent;
+    span.num {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      border: solid 1px white;
+      display: inline-block;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 1em;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+  }
+}
+label, input, textarea, select, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0;
   padding: 0.125em;
   width: 100%;
+  border: none;
+  background: transparent;
   color: darken($base-ui-color, 15);
   transition: all 0.25s ease-in-out;
 }
@@ -135,6 +161,7 @@ label, input, textarea, .extra-help, .btn {
 .active label, label:focus, 
 .active input, input:focus, 
 .active textarea, textarea:focus,
+.active select, select:focus,
 .active .extra-help, 
 .next, .btn:hover, .btn:focus {
   color: $base-ui-color;
@@ -185,11 +212,12 @@ input, textarea {
 .twitter-typeahead {
   width: 100%;
 }
-.tt-dropdown-menu {
+.tt-dropdown-menu, option {
   margin: 0;
   padding: 0.125em;
   width: 100%;
   font-family: $input-face;
+  background: transparent;
 }
 input.tt-hint {
   color: darken($base-ui-color, 30);

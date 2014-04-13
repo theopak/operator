@@ -23,12 +23,12 @@
         <ul class="form-fields">
            <li class="active">
               <label>How can I reach you?</label>
-              <input type="text" name="input-number" class="text-input" placeholder="(800) 555-5555"/>
+              <input type="tel" name="input-number" class="text-input" placeholder="(800) 555-5555"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
               <label>Where should I email the transcript?</label>
-              <input type="text" name="input-email" class="text-input" placeholder="your-email@example.com"/>
+              <input type="email" name="input-email" class="text-input" placeholder="your-email@example.com"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
@@ -37,9 +37,12 @@
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
               <p class="company-not-found"></p>
            </li>
-           {# <li class="hidden">
+{#            <li class="active">
               <label>What language do you speak?</label>
-              <input type="button" name="1" class="text-input" placeholder="English&hellip;"/>
+              <select id="input-selection-1">
+               <option value="1">English</option>
+               <option value="2">Espa&ntilde;ol</option>
+              </select>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
@@ -50,8 +53,8 @@
            <li class="hidden">
               <label></label>
               <a href="#" class="text-input btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a>
-           </li> #}
-        </ul>
+           </li>
+ #}        </ul>
       </form>
 
     </div><!-- .wrapper -->    
@@ -64,6 +67,7 @@
     <script src="static/js/jquery-1.11.0.min.js" charset="utf-8"></script>
     <script src="static/js/jquery.smooth-scroll.min.js" charset="utf-8"></script>
     <script src="static/js/typeahead.bundle.min.js" charset="utf-8"></script>
+    <script src="static/js/jquery.maskedinput.min.js" type="text/javascript"></script>
     <script src="static/js/script.js" charset="utf-8"></script>
 
   </body>

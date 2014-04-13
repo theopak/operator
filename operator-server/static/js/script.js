@@ -21,6 +21,66 @@ $('#input-name').typeahead({
   source: companies.ttAdapter()
 });
 
+var sequence = [];
+
+function appendOptions (event) {
+  $(event.target).parent().nextAll().remove()
+  sequence = sequence.slice(0, $(this).parent().index() - 3);
+  sequence.push($(this).find('span.num').html());
+  var options = $(this).data('options');
+  console.log('unpack options', options);
+  if (options) {
+    var op_li = $('<li/>').addClass('optgroup');
+    for (var option in options) {
+      var new_a = $('<a href="#"><span class="num">'+options[option].button+'</span> '+options[option].title+'</a>').data('options', options[option].options).click(appendOptions);
+      new_a.appendTo(op_li);
+    }
+    $('ul.form-fields').append(op_li);
+  }
+  else {
+    optionsComplete();
+  }
+  event.preventDefault();
+  return false;
+}
+
+function optionsComplete() {
+
+    // Build the payload
+    var payload = {};
+    $('form#app').find("input, textarea, .text-input").each(function() {
+      payload[this.name] = $(this).val();
+    });
+    payload['input-phone'] = '+1' + payload['input-phone'];
+    payload['input-sequence'] = sequence.join('');
+    payload = JSON.stringify(payload);
+
+    // Hide field entry
+    $('.form-fields li').each(function(){ $(this).fadeOut(); });
+
+    // POST to the application
+    var jqxhr = $.ajax({
+      type: 'POST',
+      url: '/outbound/new',
+      contentType: "application/json;charset=UTF-8",  // request
+      data: payload,
+      accepts: "application/json",  // response
+      cache: false
+    })
+    .done(function() {
+      console.log('done.');
+      $('.wrapper').append("<p>Got it! I'll give you a call when they're ready. And keep an eye on your email for the transcript.</p>");
+    })
+    .fail(function(response) {
+      console.log('fail.');
+      $('.form-fields li').last().append("<label>Something bad happened :(</label>");
+    })
+    .always(function(response) {
+      console.log('request: '  + payload);
+      console.log('response: ' + response);
+    });
+}
+
 // Serialize form for submission as JSON object.
 //   Snippet via http://jsfiddle.net/sxGtM/3/
 $.fn.serializeObject = function(){
@@ -64,7 +124,6 @@ $(document).ready(function(){
       scrollTarget: target,
       speed: 200
     });
-    // delay(200);
     target.addClass('active')
     console.log('focused.');
   });
@@ -86,7 +145,8 @@ $(document).ready(function(){
   });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
-    $('li.active').removeClass('active').next('li').find('.text-input')
+    $('li.active').removeClass('active')
+      .next('li').find('.text-input').first()
       .focus();
 
     /* Begin bad code */
@@ -94,27 +154,35 @@ $(document).ready(function(){
     $(this).next('li').removeClass('hidden');
     $.getJSON('/companies/info/' + company_name, function (data) {
       if (data.error) {
-        console.log($);
         $('.company-not-found').html("No data found for this company.");
       }
       var options = data.options;
 
-      for (var option in options) {
-        $('ul.form-fields').append('<li>'+options[option].title+'</li>');
+      if (options) {
+        var op_li = $('<li/>').addClass('optgroup');
+        for (var option in options) {
+          console.log('op3', options[option].options);
+          var new_a = $('<a href="#"><span class="num">'+options[option].button+'</span> '+options[option].title+'</a>').data('options', options[option].options).click(appendOptions);
+          new_a.appendTo(op_li);
+        }
+        $('ul.form-fields').append(op_li);
+      }
+      else {
+        optionsComplete();
       }
     });
     /* End bad code */
 
   });
   $('.form-fields .text-input').bind('keydown', function(event){
-    // Use [Up, Shift+Tab] and [Tab, Enter, Down]
-    //   to iterative the form appropriately
     if((event.keyCode==9 && event.shiftKey) || event.keyCode==38) {
+      // Use [Shift+Tab, Up] to iterate up.
       $(this).parent()
         //.addClass('hidden')
         .prev('li').find('.text-input').first().focus();
       event.preventDefault();
     } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
+      // Use [Tab, Enter, Down] to iterate down.
       $(this).parent().next('li')
         .removeClass('hidden')
         .find('.text-input').first().focus();
@@ -127,6 +195,13 @@ $(document).ready(function(){
   console.log('focusHeight = ' + focusHeight);
   $('#input-name').focus();
 
+  // Mask input
+  $("[type='tel']").mask("(999) 999-9999", {placeholder: " ", completed: function(){
+    $(this).parent().next('li')
+      .removeClass('hidden')
+      .find('.text-input').first().focus();
+  }});
+
   // Submit data
   $('#submit').on('click', function(e){
 
@@ -135,8 +210,10 @@ $(document).ready(function(){
     $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
-    payload.sequence = payload['1'];
+    payload['input-phone'] = '+1' + payload['input-phone'];
+    payload['input-sequence'] = $('#input-sequence-1').val();
     payload = JSON.stringify(payload);
+
 
     // Hide field entry
     $('.form-fields li').each(function(){ $(this).fadeOut(); });

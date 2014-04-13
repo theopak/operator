@@ -62,11 +62,11 @@ def handle_outbound():
     name = document['input-name']
     phone = document['input-number']
     email = document['input-email']
-    sequence = document['sequence']
+    sequence = document['input-sequence']
 
-    sequence = ['w' + x for x in sequence]
+    sequence = ['ww' + x for x in sequence]
     sequence = ''.join(sequence)
-    sequence = 'wwww' + sequence
+    sequence = 'wwwwww' + sequence
 
     business = mongo.db.companies.find_one({'name': name})
 
