@@ -19,7 +19,7 @@ body {
   min-height: 100%;
   line-height: 1.375em;
   text-rendering: optimizeLegibility;
-  background: url(../img/79H_export.jpg) no-repeat center fixed;
+  background: url(../img/picjumbo.com_IMG_3642_export.jpg) no-repeat left center fixed;
   background-size: cover;
   overflow: hidden;
 }
@@ -68,6 +68,7 @@ header {
   h1 {
     margin: 0;
     font: 700 1.75em $brand-face;
+    letter-spacing: -0.02em;
     white-space: nowrap;
   }
   &.sticket {
@@ -85,6 +86,7 @@ header {
   text-align: center;
   h2 {
     font: italic 1em/1.5em $instructions-face;
+    padding: 0 0.125em;
     emph {
       display: block;
       clear: both;
@@ -108,7 +110,7 @@ label, input, textarea, .extra-help, .btn {
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
   width: 100%;
-  color: lighten($base-ui-color, 10);
+  color: lighten($base-ui-color, 15);
   transition: all 0.25s ease-in-out;
 }
 .extra-help {
@@ -145,6 +147,9 @@ input, textarea {
   //   color due to outsanding browser bugs. Maybe there's a 
   //   readability issue or something? idk whatevs.
 }
+*::-webkit-input-placeholder {
+  color: lighten($base-ui-color, 15);
+}
 .next {
   display: block;
   padding-left: 0;
@@ -171,6 +176,7 @@ input, textarea {
   margin: 0 0.5em;
   padding: 0.125em;
   width: 100%;
+  height: auto;
   //max-height: 150px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -204,7 +210,7 @@ footer {
 /* RESPONSIVE STYLES ====================================================== */
 @include media-query(desk) {
   header, .wrapper, footer {
-    margin-left: 20px;
+    margin-left: 30px;
     max-width: 480px;
     font-size: 1.2em;
   }

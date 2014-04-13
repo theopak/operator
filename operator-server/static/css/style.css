@@ -1362,7 +1362,7 @@ td {
  */
 .table--bordered th,
 .table--bordered td {
-  border: 1px solid #333333; }
+  border: 1px solid #222222; }
   .table--bordered th:empty,
   .table--bordered td:empty {
     border: none; }
@@ -2985,7 +2985,7 @@ body {
   min-height: 100%;
   line-height: 1.375em;
   text-rendering: optimizeLegibility;
-  background: url(../img/79H_export.jpg) no-repeat center fixed;
+  background: url(../img/picjumbo.com_IMG_3642_export.jpg) no-repeat left center fixed;
   background-size: cover;
   overflow: hidden; }
 
@@ -3023,11 +3023,12 @@ header {
   margin: 0 auto;
   padding: 1em 20px;
   width: 100%;
-  color: #333333;
+  color: #222222;
   text-align: center; }
   header h1 {
     margin: 0;
     font: 700 1.75em "Bitter";
+    letter-spacing: -0.02em;
     white-space: nowrap; }
   header.sticket {
     position: fixed;
@@ -3039,7 +3040,8 @@ header {
   padding: 0 20px;
   text-align: center; }
   .wrapper h2 {
-    font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
+    font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
+    padding: 0 0.125em; }
     .wrapper h2 emph {
       display: block;
       clear: both;
@@ -3059,7 +3061,7 @@ label, input, textarea, .extra-help, .btn {
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
   width: 100%;
-  color: #4d4d4d;
+  color: #484848;
   transition: all 0.25s ease-in-out; }
 
 .extra-help {
@@ -3075,8 +3077,8 @@ label, input, textarea, .extra-help, .btn {
 .active input, input:focus,
 .active textarea, textarea:focus,
 .active .extra-help,
-.next, .btn {
-  color: #333333;
+.next, .btn:hover, .btn:focus {
+  color: #222222;
   outline: none; }
 
 label {
@@ -3089,7 +3091,10 @@ input, textarea {
   background: transparent;
   font-family: "Courier New", monospace, serif; }
   input:focus, textarea:focus {
-    border-bottom-color: #333333; }
+    border-bottom-color: #222222; }
+
+*::-webkit-input-placeholder {
+  color: #484848; }
 
 .next {
   display: block;
@@ -3114,30 +3119,31 @@ input, textarea {
   margin: 0 0.5em;
   padding: 0.125em;
   width: 100%;
+  height: auto;
   overflow-x: hidden;
   overflow-y: auto;
   font-family: "Courier New", monospace, serif; }
 
 input.tt-hint {
-  color: gray; }
+  color: #6f6f6f; }
 
 /* FOOTER ================================================================= */
 footer {
   padding: 0.375em 20px 0.75em;
   font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
   text-align: center;
-  color: #666666; }
+  color: #555555; }
   footer p {
     margin: 0; }
   footer a {
     font-weight: bold;
-    color: #666666; }
+    color: #555555; }
     footer a:hover {
       color: #428bca; }
 
 /* RESPONSIVE STYLES ====================================================== */
 @media only screen and (min-width: 780px) {
   header, .wrapper, footer {
-    margin-left: 20px;
+    margin-left: 30px;
     max-width: 480px;
     font-size: 1.2em; } }
