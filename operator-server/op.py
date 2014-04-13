@@ -1,10 +1,9 @@
 from telapi import rest, inboundxml
 import requests
+from settings import account_sid, auth_token
 
-account_sid = 'AC6c8890845673e4b306e74e16990b475d'
-auth_token  = 'fc1d521995724225a4d58f661aa732fc'
-client      = rest.Client(account_sid, auth_token)
-account     = client.accounts[client.account_sid]
+client  = rest.Client(account_sid, auth_token)
+account = client.accounts[client.account_sid]
 
 def place_call(phone, uid, sequence):
     call  = account.calls.create( 
