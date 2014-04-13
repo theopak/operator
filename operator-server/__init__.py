@@ -1,18 +1,8 @@
-from flask import Flask, render_template, request, jsonify, Response
-#import logging
+from flask import render_template, request, jsonify, Response
 import json
-from flask.ext.pymongo import PyMongo
+from bson import json_util
 
-
-# Connect to remote MongoDB instance
-app = Flask(__name__, static_folder='static')
-# app.config['MONGO_HOST'] = '0.mongolab.com'
-# app.config['MONGO_PORT'] = 0
-# app.config['MONGO_DBNAME'] = 'dbname'
-# app.config['MONGO_USERNAME'] = 'username'
-# app.config['MONGO_PASSWORD'] = 'password'
-# mongo = PyMongo(app, config_prefix='MONGO')
-
+from settings import *
 
 @app.route('/')
 def home_page():
@@ -21,6 +11,10 @@ def home_page():
     '''
     return render_template('index.html')
 
+@app.route('/companies/<query>.json')
+def company_search(query):
+    results = list(mongo.db.companies.find({'name': {'$regex': query, '$options': '-i'}}))
+    return json.dumps(results, default=json_util.default)
 
 if __name__ == "__main__":
     app.debug = True  # Do not enable Debug mode on the production server!
