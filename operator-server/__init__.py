@@ -15,7 +15,7 @@ def home_page():
 def company_search(query):
     results = list(mongo.db.companies.find({
         'name': {
-            '$regex': query,
+            '$regex': '^'+query,
             '$options': '-i'
         }
     }))
