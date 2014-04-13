@@ -4,12 +4,14 @@ from bson import json_util
 
 from settings import *
 
+
 @app.route('/')
 def home_page():
     '''
     Home page, which is the entire frontend app lol.
     '''
     return render_template('index.html')
+
 
 @app.route('/companies/search/<query>')
 def company_search(query):
@@ -25,6 +27,7 @@ def company_search(query):
 def company_info(query):
     company = mongo.db.companies.find_one({'name': query})
     return json.dumps(company, default=json_util.default, ensure_ascii=False)
+
 
 @app.route('/outbound/new', methods=['POST', 'PUT'])
 def handle_outbound():
