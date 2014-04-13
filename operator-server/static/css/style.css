@@ -2986,7 +2986,8 @@ body {
   line-height: 1.375em;
   text-rendering: optimizeLegibility;
   background: url(../img/79H_export.jpg) no-repeat center fixed;
-  background-size: cover; }
+  background-size: cover;
+  overflow: hidden; }
 
 ::selection {
   background: #add1ed;
@@ -3047,14 +3048,18 @@ header {
 ul.form-fields li {
   position: relative;
   margin-bottom: 3em;
-  text-align: left; }
+  text-align: left;
+  transition: all 1s ease-in-out; }
+
+.hidden {
+  display: none; }
 
 label, input, textarea, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
   width: 100%;
-  color: #666666;
+  color: #4d4d4d;
   transition: all 0.25s ease-in-out; }
 
 .extra-help {
@@ -3107,11 +3112,11 @@ input, textarea {
 
 .tt-dropdown-menu {
   margin: 0 0.5em;
+  padding: 0.125em;
   width: 100%;
-  max-height: 150px;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #ccc; }
+  font-family: "Courier New", monospace, serif; }
 
 input.tt-hint {
   color: gray; }
