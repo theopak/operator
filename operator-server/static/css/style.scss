@@ -56,14 +56,32 @@ img.loading {
 
 /* HEADER ================================================================= */
 header {
+  position: fixed;
+  top: 0;
   margin: 0 auto;
   padding: 1em 20px;
+  width: 100%;
   color: $base-ui-color;
   text-align: center;
+  //z-index: 99;  // don't let the header cofer clickable content!
   h1 {
+    margin: 0;
     font: 700 1.75em $brand-face;
     white-space: nowrap;
   }
+  &.sticket {
+    position: fixed;
+    top: 0;
+  }
+}
+
+
+/* CONTENT BODY =========================================================== */
+.wrapper {
+  margin: 3.5em+1em auto 3em;
+  padding: 0 20px;
+  //background-color: $brand-color;
+  text-align: center;
   h2 {
     font: italic 1em/1.5em $instructions-face;
     emph {
@@ -73,17 +91,6 @@ header {
     }
   }
 }
-
-
-/* CONTENT BODY =========================================================== */
-.wrapper {
-  margin: 0 auto 3em;
-  padding: 0 20px;
-  //background-color: $brand-color;
-  text-align: center;
-}
-section {
-}
 ul.form-fields {
   li {
     position: relative;
@@ -91,7 +98,7 @@ ul.form-fields {
     text-align: left;
   }
 }
-label, input, textarea, .extra-help {
+label, input, textarea, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
@@ -111,7 +118,8 @@ label, input, textarea, .extra-help {
 .active label, label:focus, 
 .active input, input:focus, 
 .active textarea, textarea:focus,
-.active .extra-help, .next {
+.active .extra-help, 
+.next, .btn {
   color: $base-ui-color;
   outline: none;
 }
@@ -145,6 +153,9 @@ input, textarea {
     text-decoration: none;
   }
 }
+.btn-primary {
+  margin-bottom: 3em;
+}
 
 
 /* TWITTER TYPEAHEAD ====================================================== */
@@ -166,10 +177,7 @@ input.tt-hint {
 
 /* FOOTER ================================================================= */
 footer {
-  position: absolute;
-  bottom: 0;
   padding: 0.375em 20px 0.75em;
-  width: 100%;
   font: italic 1em $instructions-face;
   text-align: center;
   color: lighten($base-ui-color, 20);

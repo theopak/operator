@@ -3017,32 +3017,39 @@ img.loading {
 
 /* HEADER ================================================================= */
 header {
+  position: fixed;
+  top: 0;
   margin: 0 auto;
   padding: 1em 20px;
+  width: 100%;
   color: #333333;
   text-align: center; }
   header h1 {
+    margin: 0;
     font: 700 1.75em "Bitter";
     white-space: nowrap; }
-  header h2 {
-    font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
-    header h2 emph {
-      display: block;
-      clear: both;
-      font-size: 1.5em; }
+  header.sticket {
+    position: fixed;
+    top: 0; }
 
 /* CONTENT BODY =========================================================== */
 .wrapper {
-  margin: 0 auto 3em;
+  margin: 4.5em auto 3em;
   padding: 0 20px;
   text-align: center; }
+  .wrapper h2 {
+    font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif; }
+    .wrapper h2 emph {
+      display: block;
+      clear: both;
+      font-size: 1.5em; }
 
 ul.form-fields li {
   position: relative;
   margin-bottom: 3em;
   text-align: left; }
 
-label, input, textarea, .extra-help {
+label, input, textarea, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0 0.5em;
   padding: 0.375em 0.125em 0.125em;
@@ -3062,7 +3069,8 @@ label, input, textarea, .extra-help {
 .active label, label:focus,
 .active input, input:focus,
 .active textarea, textarea:focus,
-.active .extra-help, .next {
+.active .extra-help,
+.next, .btn {
   color: #333333;
   outline: none; }
 
@@ -3090,6 +3098,9 @@ input, textarea {
   .next:hover {
     text-decoration: none; }
 
+.btn-primary {
+  margin-bottom: 3em; }
+
 /* TWITTER TYPEAHEAD ====================================================== */
 .twitter-typeahead {
   width: 100%; }
@@ -3107,10 +3118,7 @@ input.tt-hint {
 
 /* FOOTER ================================================================= */
 footer {
-  position: absolute;
-  bottom: 0;
   padding: 0.375em 20px 0.75em;
-  width: 100%;
   font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
   text-align: center;
   color: #666666; }

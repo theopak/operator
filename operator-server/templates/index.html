@@ -13,10 +13,11 @@
 
     <header id="header" itemscope itemtype="http://schema.org/Organization">
       <h1 itemprop="name">Operator</h1>
-      <h2 itemprop="description">Need me to call someone for you?<br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
     </header>
 
     <div class="wrapper">
+
+      <h2>Need me to call someone for you?<br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
 
       <form id="app" class="animated fadeIn">
         <ul class="form-fields">
@@ -45,8 +46,11 @@
               <input type="text" name="input-email" class="input " placeholder="your-email@example.com"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
+           <li>
+              <label></label>
+              <a class="btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a>
+           </li>
         </ul>
-        <a class="btn" id="submit">Dope!</a>
       </form>
 
     </div><!-- .wrapper -->    
@@ -60,48 +64,13 @@
     <script src="static/js/jquery.smooth-scroll.min.js" charset="utf-8"></script>
     <script src="static/js/typeahead.bundle.min.js" charset="utf-8"></script>
     <script>
-
-      // Temporary
-      var substringMatcher = function(strs) {
-        return function findMatches(q, cb) {
-          var matches, substringRegex;
        
-          // an array that will be populated with substring matches
-          matches = [];
-       
-          // regex used to determine if a string contains the substring `q`
-          substrRegex = new RegExp(q, 'i');
-       
-          // iterate through the pool of strings and for any string that
-          // contains the substring `q`, add it to the `matches` array
-          $.each(strs, function(i, str) {
-            if (substrRegex.test(str)) {
-              // the typeahead jQuery plugin expects suggestions to a
-              // JavaScript object, refer to typeahead docs for more info
-              matches.push({ value: str });
-            }
-          });
-       
-          cb(matches);
-        };
-      };
-      var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-      ];
+      // Typeahead
       var companies = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: '/companies/search/%QUERY'
       });
-       
-      // Typeahead
       companies.initialize();
       $('#input-name').typeahead({
         minLength: 1,
@@ -113,7 +82,8 @@
         source: companies.ttAdapter()
       });
 
-      // via http://jsfiddle.net/sxGtM/3/
+      // Serialize form for submission as JSON object.
+      //   Snippet via http://jsfiddle.net/sxGtM/3/
       $.fn.serializeObject = function(){
         var o = {};
         var a = this.serializeArray();
@@ -144,24 +114,26 @@
           }, 500);
         }, false);
 
-        // Internal Link Smooth Scroll
-        $('a').smoothScroll({
-          offset: -50
-        });
-
         // Focus forward/back
-        $('.form-fields .input').on('focus', function(e){
-          $(this).parent().addClass('active');
+        $(".form-fields").on("focus", "input, textarea, .input", function() {
+          var target = $(this).parent();
+          target.addClass('active');
+          $.smoothScroll({
+            offset: -focusHeight,
+            scrollTarget: target,
+          });
+          console.log('focused.');
         });
         $('.form-fields .input').on('blur', function(e){
           $(this).parent().removeClass('active');
         });
         $('.form-fields label').on('click', function(e){
-          console.log('yup');
+          console.log('click will result in focus.');
           $(this).next('.input').focus();
         });
         $('.form-fields .next').on('click', function(e){
-          $(this).parent().parent().next('li').find('.input').focus();
+          console.log('button click will result in focus.');
+          $(this).parent().parent().next('li').find('.input').first().focus();
         });
         $('.form-fields .input').bind('keyup', function(e){
           // Use [Up] and [Enter, Down]
@@ -173,33 +145,43 @@
           } 
         });
 
+        // Initialize state
+        var focusHeight = $('.form-fields input').first().offset().top;
+        console.log('focusHeight = ' + focusHeight);
+        $('.form-fields input').first().focus();
+
         // Submit data
         $('#submit').on('click', function(e){
 
           // Build the payload
-          var payload = JSON.stringify( $('form#app').serializeObject() );
+          var payload = {};
+          $('form#app').find("input, textarea, .input").each(function() {
+            payload[this.name] = $(this).val();
+          });
+          payload.sequence = payload['1'];
+          payload = JSON.stringify(payload);
 
-          // POST jqXHR
+          // POST to the application
           var jqxhr = $.ajax({
             type: 'POST',
             url: '/outbound/new',
+            contentType: "application/json;charset=UTF-8",  // request
             data: payload,
+            accepts: "application/json",  // response
             cache: false
           })
           .done(function() {
-            console.log('done');
+            console.log('done.');
           })
-          .fail(function() {
-            console.log('fail');
+          .fail(function(response) {
+            console.log('fail.');
           })
-          .always(function() {
-            console.log(payload);
+          .always(function(response) {
+            console.log('request: '  + payload);
+            console.log('response: ' + response);
           });
 
         });
-
-        // Select first form
-        $('.form-fields .input').first().focus();
 
       });
 
