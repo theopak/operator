@@ -67,7 +67,7 @@ header {
   color: $base-ui-color;
   background-color: $neutral-color;
   text-align: center;
-  //z-index: 99;  // don't let the header cofer clickable content!
+  z-index: 99;
   h1 {
     margin: 0;
     font: 700 1.75em $brand-face;

@@ -96,9 +96,16 @@ $(document).ready(function(){
       event.preventDefault();
     } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
       // Use [Tab, Enter, Down] to iterate down.
-      $(this).parent().next('li')
-        .removeClass('hidden')
-        .find('.text-input').first().focus();
+      var dataNext = $(this).data('next');
+      console.log(dataNext);
+      if(!(dataNext=="")) {
+        $('li.hidden').first().removeClass('hidden');
+        $(dataNext).focus();
+      } else {
+        $(this).parent().next('li')
+          .removeClass('hidden')
+          .find('.text-input').first().focus();
+      }
       event.preventDefault();
     } 
   });
