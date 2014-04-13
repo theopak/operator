@@ -14,10 +14,10 @@ def place_call(phone, sequence):
     return "success"
 
 def push_buttons(sid, sequence):
-    sid = request.form['sid']
+    # sid = request.form['sid']
     return inboundxml.Response(
         inboundxml.Say(
-            sid,
+            "sid",
             voice = 'man',
             loop  = 3
         ),
