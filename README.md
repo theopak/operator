@@ -1,8 +1,15 @@
-Operator
-========
+# [Operator](http://happyoperator.com)
 
-"Hello! Who would you like to call?"
+_"Hello! Who would you like to call?"_ I let you know when a real human is ready to take your call.
 
-I let you know when a real human is ready to take your call.
 
-By [Theo Pak](http://github.com/theopak) and [Derek Schultz](http://github.com/derek-schultz).
+## Purpose
+
+1. Automate phone menu systems.
+2. Never wait on hold.
+3. Get an email with a transcript and recording of your call.
+
+
+## Authors
+
+By [Theo Pak](http://github.com/theopak) and [Derek Schultz](http://github.com/derek-schultz) at [HackRU Spring 2014](http://hackRU.org).
