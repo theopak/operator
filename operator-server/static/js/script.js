@@ -116,11 +116,7 @@ $(document).ready(function(){
   $('#input-name').focus();
 
   // Mask input
-  $("[type='tel']").mask("(999) 999-9999", {placeholder: " ", completed: function(){
-    $(this).parent().next('li')
-      .removeClass('hidden')
-      .find('.text-input').first().focus();
-  }});
+  $("[type='tel']").mask("(999) 999-9999", {placeholder: " "});
 
   // Submit data
   $('#submit').on('click', function(e){
