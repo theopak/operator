@@ -1,6 +1,7 @@
 from flask import render_template, request, jsonify, Response
 import json
 from bson import json_util
+from twoperator import place_call
 
 from settings import *
 
@@ -56,16 +57,21 @@ def handle_outbound():
     name = document['input-name']
     phone = document['input-number']
     sequence = document['sequence']
+    print sequence
+
+    place_call("+16034756914", sequence)
 
     # Add each dimension to the collection as a unique document
-    refs = mongo.db.initiatedCalls.insert(document)
+    # refs = mongo.db.initiatedCalls.insert(document)
 
     # Return success
     data = {'result': 'success', 'results': refs}
     return json.dumps(data, default=json_util.default)
 
-    #[('{"1":"","":"","input-name":"Theo Pak","input-problem":"","input-number":"","input-email":""}', u'')]
 
+@app.route('/inbound/connected/<sequence>')
+def handle_inbound(sequence):
+    return press_buttons(sequence)
 
 
 if __name__ == "__main__":
