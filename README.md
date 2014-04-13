@@ -2,6 +2,7 @@
 
 _"Hello! Who would you like to call?"_ I let you know when a real human is ready to take your call.
 
+![](assets/DSC_0259.JPG)
 
 ## Purpose
 
