@@ -41,6 +41,10 @@ def handle_outbound():
         error = "PUT/POST JSON object (application/x-www-form-urlencoded)."
         return render_template('error.html', error=error)
 
+    name = request.form['input-name']
+    phone = request.form['input-number']
+    sequence = request.form['sequence']
+
     # Add each dimension to the collection as a unique document
     refs = mongo.db.initiatedCalls.insert(document)
 
