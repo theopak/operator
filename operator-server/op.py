@@ -1,4 +1,5 @@
 from telapi import rest, inboundxml
+import requests
 
 account_sid = 'AC6c8890845673e4b306e74e16990b475d'
 auth_token  = 'fc1d521995724225a4d58f661aa732fc'
@@ -14,10 +15,15 @@ def place_call(phone, sequence):
     return "success"
 
 def press_buttons(sid, sequence):
-    call  = account.calls[str(sid)]
-    call.play_dtmf = sequence
-    call.save()
-    pause_duration = len(sequence) * 0.5 + 1
+    # call  = account.calls[str(sid)]
+    # call.play_dtmf = sequence
+    # call.save()
+
+    r = requests.post('https://api.telapi.com/v1/Accounts/AC6c8890845673e4b306e74e16990b475d/Calls/'+sid+'.json', auth=(account_sid, auth_token), data={'PlayDtmf': sequence})
+    print r.content
+
+    print sequence
+    pause_duration = int(len(sequence) * 0.5 + 1)
     return '<?xml version="1.0"?>\n' + str(inboundxml.Response(
         inboundxml.Pause(length=pause_duration)
     ))
