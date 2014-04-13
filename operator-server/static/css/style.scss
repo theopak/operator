@@ -114,30 +114,7 @@ ul.form-fields {
 .hidden {
   display: none;
 }
-li.optgroup {
-  a {
-    color: white;
-    display: block;
-    padding: 10px;
-    border: solid 1px transparent;
-    span.num {
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
-      border: solid 1px white;
-      display: inline-block;
-      text-align: center;
-      line-height: 40px;
-      margin-right: 1em;
-    }
-  }
-  a:hover {
-    text-decoration: none;
-    border-top: solid 1px white;
-    border-bottom: solid 1px white;
-  }
-}
-label, input, textarea, select, .extra-help, .btn {
+label, input, textarea, select, .optgroup a, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0;
   padding: 0.125em;
@@ -146,6 +123,19 @@ label, input, textarea, select, .extra-help, .btn {
   background: transparent;
   color: darken($base-ui-color, 15);
   transition: all 0.25s ease-in-out;
+}
+li.optgroup a {
+  padding-bottom: 10px;
+}
+span.num {
+  display: inline-block;
+  margin-right: 0.5em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid darken($base-ui-color, 15);
+  line-height: 40px;
+  text-align: center;
 }
 .extra-help {
   //position: absolute;
@@ -164,9 +154,11 @@ label, input, textarea, select, .extra-help, .btn {
 .active input, input:focus, 
 .active textarea, textarea:focus,
 .active select, select:focus,
+.active .optgroup a, .optgroup a:hover,
 .active .extra-help, 
 .next, .btn:hover, .btn:focus {
   color: $base-ui-color;
+  text-decoration: none;
   outline: none;
 }
 label {

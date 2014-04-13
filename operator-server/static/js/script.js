@@ -38,7 +38,7 @@ function appendOptions (event) {
     $('ul.form-fields').append(op_li);
   }
   else {
-    optionsComplete();
+    //optionsComplete();
   }
   event.preventDefault();
   return false;
@@ -138,7 +138,7 @@ $(document).ready(function(){
       .focus();
 
     /* Begin bad code */
-    var company_name = $('#input-name').val();
+    var company_name = $('#outbound').val();
     $(this).next('li').removeClass('hidden');
     $.getJSON('/companies/info/' + company_name, function (data) {
       if (data.error) {
@@ -156,7 +156,7 @@ $(document).ready(function(){
         $('ul.form-fields').append(op_li);
       }
       else {
-        optionsComplete();
+        //optionsComplete();
       }
     });
     /* End bad code */
