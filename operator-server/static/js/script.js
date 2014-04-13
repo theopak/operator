@@ -88,14 +88,14 @@ $(document).ready(function(){
       .focus();
   });
   $('.form-fields .text-input').bind('keydown', function(event){
-    // Use [Up, Shift+Tab] and [Tab, Enter, Down]
-    //   to iterative the form appropriately
     if((event.keyCode==9 && event.shiftKey) || event.keyCode==38) {
+      // Use [Shift+Tab, Up] to iterate up.
       $(this).parent()
         //.addClass('hidden')
         .prev('li').find('.text-input').first().focus();
       event.preventDefault();
     } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
+      // Use [Tab, Enter, Down] to iterate down.
       $(this).parent().next('li')
         .removeClass('hidden')
         .find('.text-input').first().focus();
@@ -108,6 +108,13 @@ $(document).ready(function(){
   console.log('focusHeight = ' + focusHeight);
   $('#input-name').focus();
 
+  // Mask input
+  $("[type='tel']").mask("(999) 999-9999", {placeholder: " ", completed: function(){
+    $(this).parent().next('li')
+      .removeClass('hidden')
+      .find('.text-input').first().focus();
+  }});
+
   // Submit data
   $('#submit').on('click', function(e){
 
@@ -116,8 +123,10 @@ $(document).ready(function(){
     $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
-    payload.sequence = payload['1'];
+    payload['input-phone'] = '+1' + payload['input-phone'];
+    payload['input-sequence'] = $('#input-sequence-1').val();
     payload = JSON.stringify(payload);
+
 
     // Hide field entry
     $('.form-fields li').each(function(){ $(this).fadeOut(); });
