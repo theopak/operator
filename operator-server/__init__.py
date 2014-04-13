@@ -59,10 +59,10 @@ def handle_outbound():
 
     # Load data as JSON
     document = request.get_json(force=True)
-    name = document['input-name']
-    phone = document['input-number']
-    email = document['input-email']
-    sequence = document['input-sequence']
+    name = document['outbound']
+    phone = document['phone']
+    email = document['email']
+    sequence = document['sequence']
 
     sequence = ['ww' + x for x in sequence]
     sequence = ''.join(sequence)

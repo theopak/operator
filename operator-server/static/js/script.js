@@ -11,7 +11,7 @@ var companies = new Bloodhound({
   remote: '/companies/search/%QUERY'
 });
 companies.initialize();
-$('#input-name').typeahead({
+$('#outbound').typeahead({
   minLength: 1,
   highlight: true,
 },
@@ -42,43 +42,6 @@ function appendOptions (event) {
   }
   event.preventDefault();
   return false;
-}
-
-function optionsComplete() {
-
-    // Build the payload
-    var payload = {};
-    $('form#app').find("input, textarea, .text-input").each(function() {
-      payload[this.name] = $(this).val();
-    });
-    payload['input-phone'] = '+1' + payload['input-phone'];
-    payload['input-sequence'] = sequence.join('');
-    payload = JSON.stringify(payload);
-
-    // Hide field entry
-    $('.form-fields li').each(function(){ $(this).fadeOut(); });
-
-    // POST to the application
-    var jqxhr = $.ajax({
-      type: 'POST',
-      url: '/outbound/new',
-      contentType: "application/json;charset=UTF-8",  // request
-      data: payload,
-      accepts: "application/json",  // response
-      cache: false
-    })
-    .done(function() {
-      console.log('done.');
-      $('.wrapper').append("<p>Got it! I'll give you a call when they're ready. And keep an eye on your email for the transcript.</p>");
-    })
-    .fail(function(response) {
-      console.log('fail.');
-      $('.form-fields li').last().append("<label>Something bad happened :(</label>");
-    })
-    .always(function(response) {
-      console.log('request: '  + payload);
-      console.log('response: ' + response);
-    });
 }
 
 // Serialize form for submission as JSON object.
@@ -183,9 +146,16 @@ $(document).ready(function(){
       event.preventDefault();
     } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
       // Use [Tab, Enter, Down] to iterate down.
-      $(this).parent().next('li')
-        .removeClass('hidden')
-        .find('.text-input').first().focus();
+      var dataNext = $(this).data('next');
+      console.log(dataNext);
+      if(!(dataNext=="")) {
+        $('li.hidden').first().removeClass('hidden');
+        $(dataNext).focus();
+      } else {
+        $(this).parent().next('li')
+          .removeClass('hidden')
+          .find('.text-input').first().focus();
+      }
       event.preventDefault();
     } 
   });
@@ -193,7 +163,11 @@ $(document).ready(function(){
   // Initialize state
   var focusHeight = $('.form-fields input').first().offset().top;
   console.log('focusHeight = ' + focusHeight);
-  $('#input-name').focus();
+  $('form#app>ul>li').addClass('.hidden');
+  $('form#app>ul>li').first()
+    .removeClass('.hidden')
+    .addClass('active');
+  $('form#app .text-input').first().focus();
 
   // Mask input
   $("[type='tel']").mask("(999) 999-9999", {placeholder: " ", completed: function(){
@@ -210,8 +184,8 @@ $(document).ready(function(){
     $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
-    payload['input-phone'] = '+1' + payload['input-phone'];
-    payload['input-sequence'] = $('#input-sequence-1').val();
+    payload['phone'] = '+1 ' + payload['phone'];
+    payload['sequence'] = $('#sequence-1').val();
     payload = JSON.stringify(payload);
 
 
@@ -233,6 +207,7 @@ $(document).ready(function(){
     })
     .fail(function(response) {
       console.log('fail.');
+      $('.form-fields li').each(function(){ $(this).fadeIn(); });
       $('.form-fields li').last().append("<label>Something bad happened :(</label>");
     })
     .always(function(response) {
