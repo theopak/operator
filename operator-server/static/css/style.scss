@@ -114,6 +114,29 @@ ul.form-fields {
 .hidden {
   display: none;
 }
+li.optgroup {
+  a {
+    color: white;
+    display: block;
+    padding: 10px;
+    border: solid 1px transparent;
+    span.num {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      border: solid 1px white;
+      display: inline-block;
+      text-align: center;
+      line-height: 40px;
+      margin-right: 1em;
+    }
+  }
+  a:hover {
+    text-decoration: none;
+    border-top: solid 1px white;
+    border-bottom: solid 1px white;
+  }
+}
 label, input, textarea, select, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0;

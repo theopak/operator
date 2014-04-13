@@ -21,6 +21,29 @@ $('#outbound').typeahead({
   source: companies.ttAdapter()
 });
 
+var sequence = [];
+
+function appendOptions (event) {
+  $(event.target).parent().nextAll().remove()
+  sequence = sequence.slice(0, $(this).parent().index() - 3);
+  sequence.push($(this).find('span.num').html());
+  var options = $(this).data('options');
+  console.log('unpack options', options);
+  if (options) {
+    var op_li = $('<li/>').addClass('optgroup');
+    for (var option in options) {
+      var new_a = $('<a href="#"><span class="num">'+options[option].button+'</span> '+options[option].title+'</a>').data('options', options[option].options).click(appendOptions);
+      new_a.appendTo(op_li);
+    }
+    $('ul.form-fields').append(op_li);
+  }
+  else {
+    optionsComplete();
+  }
+  event.preventDefault();
+  return false;
+}
+
 // Serialize form for submission as JSON object.
 //   Snippet via http://jsfiddle.net/sxGtM/3/
 $.fn.serializeObject = function(){
@@ -105,11 +128,39 @@ $(document).ready(function(){
     $(this).parentsUntil('li.active').first().parent()
       .next('li.hidden .text-input').focus();
   });
+  $(document).on('typeahead:opened', function() {
+    $('.company-not-found').html("");
+  });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
     $('li.active').removeClass('active')
       .next('li').find('.text-input').first()
       .focus();
+
+    /* Begin bad code */
+    var company_name = $('#input-name').val();
+    $(this).next('li').removeClass('hidden');
+    $.getJSON('/companies/info/' + company_name, function (data) {
+      if (data.error) {
+        $('.company-not-found').html("No data found for this company.");
+      }
+      var options = data.options;
+
+      if (options) {
+        var op_li = $('<li/>').addClass('optgroup');
+        for (var option in options) {
+          console.log('op3', options[option].options);
+          var new_a = $('<a href="#"><span class="num">'+options[option].button+'</span> '+options[option].title+'</a>').data('options', options[option].options).click(appendOptions);
+          new_a.appendTo(op_li);
+        }
+        $('ul.form-fields').append(op_li);
+      }
+      else {
+        optionsComplete();
+      }
+    });
+    /* End bad code */
+
   });
   $('.form-fields .text-input').bind('keydown', function(event){
     if((event.keyCode==9 && event.shiftKey) || event.keyCode==38) {
