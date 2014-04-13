@@ -4,6 +4,7 @@ from bson import json_util
 
 from settings import *
 
+
 @app.route('/')
 def home_page():
     '''
@@ -11,10 +12,12 @@ def home_page():
     '''
     return render_template('index.html')
 
-@app.route('/companies/<query>.json')
+
+@app.route('/companies/search/<query>')
 def company_search(query):
     results = list(mongo.db.companies.find({'name': {'$regex': query, '$options': '-i'}}))
     return json.dumps(results, default=json_util.default)
+
 
 @app.route('/outbound/new', methods=['POST', 'PUT'])
 def handle_outbound():

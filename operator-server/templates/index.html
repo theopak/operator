@@ -36,12 +36,17 @@
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li>
-              <label>Dope! I can take care of that for you.<br/>What's your number?</label>
-              <input type="text" input="number" class="input " placeholder="+1 (xxx) xxx-xxxx"/>
+              <label>What's your number?</label>
+              <input type="text" name="input-number" class="input " placeholder="+1 (xxx) xxx-xxxx"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
+           </li>
+           <li>
+              <label>Where should I email the transcript?</label>
+              <input type="text" name="input-email" class="input " placeholder="your-email@example.com"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
         </ul>
-        <a class="btn" id="submit">Punch it!</a>
+        <a class="btn" id="submit">Dope!</a>
       </form>
 
     </div><!-- .wrapper -->    
@@ -53,7 +58,7 @@
 
     <script src="static/js/jquery-1.11.0.min.js" charset="utf-8"></script>
     <script src="static/js/jquery.smooth-scroll.min.js" charset="utf-8"></script>
-    <script src="static/js/jquery.typeahead.min.js" charset="utf-8"></script>
+    <script src="static/js/typeahead.bundle.min.js" charset="utf-8"></script>
     <script>
 
       // Temporary
@@ -90,16 +95,22 @@
         'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
         'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
       ];
-
+      var companies = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: '/companies/search/%QUERY'
+      });
+       
       // Typeahead
+      companies.initialize();
       $('#input-name').typeahead({
         minLength: 1,
         highlight: true,
       },
       {
-        name: 'states',
-        displayKey: 'value',
-        source: substringMatcher(states)
+        name: 'companies',
+        displayKey: 'name',
+        source: companies.ttAdapter()
       });
 
       // via http://jsfiddle.net/sxGtM/3/
