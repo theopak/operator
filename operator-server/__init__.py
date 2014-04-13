@@ -1,6 +1,7 @@
 from flask import render_template, request, jsonify, Response
 import json
 from bson import json_util
+from twoperator import place_call
 
 from settings import *
 
@@ -36,24 +37,35 @@ def handle_outbound():
     '''
 
     # Useful for debugging
-    print request.form
-    document = request.form[0]
+    # print request.form
+    # document = request.form[0]
 
     # Detect and handle errors
-    if request.form.keys() < 1:
-        error = "PUT/POST JSON object (application/x-www-form-urlencoded)."
-        return render_template('error.html', error=error)
+    # if request.form.keys() < 1:
+    #     error = "PUT/POST JSON object (application/x-www-form-urlencoded)."
+    #     return render_template('error.html', error=error)
 
-    name = request.form['input-name']
-    phone = request.form['input-number']
+    # name = request.form['input-name']
+    # phone = request.form['input-number']
     sequence = request.form['sequence']
 
+    sequence = "wwww" + sequence
+    sequence = ['wwww' + x for x in sequence]
+    sequence = ''.join(sequence)
+    print sequence
+
+    place_call("+16034756914", sequence)
+
     # Add each dimension to the collection as a unique document
-    refs = mongo.db.initiatedCalls.insert(document)
+    # refs = mongo.db.initiatedCalls.insert(document)
 
     # Return success
     data = {'result': 'success'}
     return json.dumps(data, default=json_util.default)
+
+@app.route('/inbound/connected/<sequence>')
+def handle_inbound(sequence):
+    return press_buttons(sequence)
 
 
 if __name__ == "__main__":
