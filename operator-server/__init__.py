@@ -62,7 +62,7 @@ def handle_outbound():
     sequence = 'wwww' + sequence
 
     business = mongo.db.companies.find_one({'name': name})
-    op.place_call(business['phone'], sequence)
+    op.place_call("+16034756914", sequence)
 
     # Add each dimension to the collection as a unique document
     #refs = mongo.db.initiatedCalls.insert(document)
@@ -77,6 +77,13 @@ def handle_inbound(sequence):
     print "CallSid", sid
     return Response(op.press_buttons(sid, sequence), mimetype="text/xml")
 
+@app.route('/inbound/waiting', methods=['POST', 'PUT'])
+def handle_wait():
+    return Response(op.loop_human_check(), mimetype="text/xml")
+
+@app.route('/inbound/complete')
+def handle_complete():
+    return Response(op.call_user(), mimetype="text/xml")
 
 if __name__ == "__main__":
     app.debug = True  # Do not enable Debug mode on the production server!
