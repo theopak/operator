@@ -14,20 +14,10 @@ def place_call(phone, sequence):
     return "success"
 
 def press_buttons(sid, sequence):
-    # sid = request.form['sid']
-    return str(inboundxml.Response(
-        inboundxml.Say(
-            "sid",
-            voice = 'man',
-            loop  = 3
-        ),
-        inboundxml.Say(
-            'Hello, My name is Jane.',
-            voice = 'woman'
-        ),
-        inboundxml.Say(
-            'Now I will not stop talking.',
-            loop = 3
-        )
+    call  = account.calls[str(sid)]
+    call.play_dtmf = sequence
+    call.save()
+    pause_duration = len(sequence) * 0.5 + 1
+    return '<?xml version="1.0"?>\n' + str(inboundxml.Response(
+        inboundxml.Pause(length=pause_duration)
     ))
-    return "lala"
