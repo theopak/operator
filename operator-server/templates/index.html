@@ -11,9 +11,9 @@
   <body id="top">
 
 
-    <header id="header">
-      <h1>Operator</h1>
-      <h2>Need me to call someone for you? <br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
+    <header id="header" itemscope itemtype="http://schema.org/Organization">
+      <h1 itemprop="name">Operator</h1>
+      <h2 itemprop="description">Need me to call someone for you? <br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
     </header>
 
     <div class="wrapper">
@@ -50,13 +50,17 @@
     <script>
 
       // Focus forward/back
-      $('.form-fields input').on('focus', function(e){
+      $('.form-fields .input').on('focus', function(e){
         $(this).parent().addClass('active');
       });
-      $('.form-fields input').on('blur', function(e){
+      $('.form-fields .input').on('blur', function(e){
         $(this).parent().removeClass('active');
       });
-      $('.form-fields .next').click(function(e){
+      $('.form-fields label').on('click', function(e){
+        console.log('yup');
+        $(this).next('.input').focus();
+      });
+      $('.form-fields .next').on('click', function(e){
         $(this).parent().parent().next('li').find('.input').focus();
       });
       $('.form-fields .input').bind('keyup', function(e){

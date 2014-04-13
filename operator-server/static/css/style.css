@@ -3086,12 +3086,12 @@ footer {
   width: 100%;
   font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
   text-align: center;
-  color: #b3b3b3; }
+  color: #666666; }
   footer p {
     margin: 0; }
   footer a {
     font-weight: bold;
-    color: #b3b3b3; }
+    color: #666666; }
     footer a:hover {
       color: #428bca; }
 
