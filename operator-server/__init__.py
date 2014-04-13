@@ -53,13 +53,12 @@ def handle_outbound():
 
     # Load data as JSON
     document = request.get_json(force=True)
-    print document
     name = document['input-name']
     phone = document['input-number']
     sequence = document['sequence']
-    print sequence
 
-    op.place_call("+16034756914", sequence)
+    business = mongo.db.companies.find_one({'name': name})
+    op.place_call(business['phone'], sequence)
 
     # Add each dimension to the collection as a unique document
     # refs = mongo.db.initiatedCalls.insert(document)
