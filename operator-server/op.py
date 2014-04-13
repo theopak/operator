@@ -13,9 +13,9 @@ def place_call(phone, sequence):
     )
     return "success"
 
-def push_buttons(sid, sequence):
+def press_buttons(sid, sequence):
     # sid = request.form['sid']
-    return inboundxml.Response(
+    return str(inboundxml.Response(
         inboundxml.Say(
             "sid",
             voice = 'man',
@@ -29,5 +29,5 @@ def push_buttons(sid, sequence):
             'Now I will not stop talking.',
             loop = 3
         )
-    )
-    
+    ))
+    return "lala"
