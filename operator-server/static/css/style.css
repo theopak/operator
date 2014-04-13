@@ -3038,15 +3038,26 @@ header {
   text-align: center; }
 
 ul.form-fields li {
+  position: relative;
   margin-bottom: 3em;
   text-align: left; }
 
 label, input, textarea, .extra-help {
+  box-sizing: border-box;
   margin: 0 0.5em;
-  padding: 0.375em 0 0.125em;
+  padding: 0.375em 0.125em 0.125em;
   width: 100%;
   color: #666666;
   transition: all 0.25s ease-in-out; }
+
+.extra-help {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding-top: 0;
+  width: auto;
+  line-height: 1.5em; }
 
 .active label, label:focus,
 .active input, input:focus,
@@ -3067,16 +3078,32 @@ input, textarea {
   input:focus, textarea:focus {
     border-bottom-color: #333333; }
 
-.extra-help {
-  padding: 0; }
-
 .next {
+  display: block;
   padding-left: 0;
+  width: 1em;
+  text-align: center;
   vertical-align: top;
   font: normal 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
+  font-style: normal;
   transition: none; }
   .next:hover {
     text-decoration: none; }
+
+/* TWITTER TYPEAHEAD ====================================================== */
+.twitter-typeahead {
+  width: 100%; }
+
+.tt-dropdown-menu {
+  margin: 0 0.5em;
+  width: 100%;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #ccc; }
+
+input.tt-hint {
+  color: gray; }
 
 /* FOOTER ================================================================= */
 footer {

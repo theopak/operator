@@ -13,30 +13,36 @@
 
     <header id="header" itemscope itemtype="http://schema.org/Organization">
       <h1 itemprop="name">Operator</h1>
-      <h2 itemprop="description">Need me to call someone for you? <br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
+      <h2 itemprop="description">Need me to call someone for you?<br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
     </header>
 
     <div class="wrapper">
 
-      <section id="app" class="animated fadeIn">
+      <form id="app" class="animated fadeIn">
         <ul class="form-fields">
            <li>
               <label>Who can I call for you?</label>
-              <input type="text" class="input text-input" placeholder="Type name or number&hellip;">
-              <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
+              <input type="text" name="input-name" id="input-name" class="input text-input typeahead" placeholder="Type name or number&hellip;"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
            </li>
            <li>
               <label>What language do you speak?</label>
-              <input type="text" class="input text-input" placeholder="Type name or number&hellip;">
-              <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
+              <input type="text" name="1" class="input text-input" placeholder="English&hellip;"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li>
               <label>And what seems to be the problem?</label>
-              <textarea class="input " placeholder="Type a full sentance."></textarea>
-              <small class="extra-help"><a class="next">next <span class="entypo chevron-right"></span></a></small>
+              <textarea class="input" name="input-problem" placeholder="Type a full sentance."></textarea>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
+           </li>
+           <li>
+              <label>Dope! I can take care of that for you.<br/>What's your number?</label>
+              <input type="text" input="number" class="input " placeholder="+1 (xxx) xxx-xxxx"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
         </ul>
-      </section>
+        <a class="btn" id="submit">Punch it!</a>
+      </form>
 
     </div><!-- .wrapper -->    
 
@@ -50,29 +56,68 @@
     <script src="static/js/jquery.typeahead.min.js" charset="utf-8"></script>
     <script>
 
-      // Focus forward/back
-      $('.form-fields .input').on('focus', function(e){
-        $(this).parent().addClass('active');
+      // Temporary
+      var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+          var matches, substringRegex;
+       
+          // an array that will be populated with substring matches
+          matches = [];
+       
+          // regex used to determine if a string contains the substring `q`
+          substrRegex = new RegExp(q, 'i');
+       
+          // iterate through the pool of strings and for any string that
+          // contains the substring `q`, add it to the `matches` array
+          $.each(strs, function(i, str) {
+            if (substrRegex.test(str)) {
+              // the typeahead jQuery plugin expects suggestions to a
+              // JavaScript object, refer to typeahead docs for more info
+              matches.push({ value: str });
+            }
+          });
+       
+          cb(matches);
+        };
+      };
+      var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+      ];
+
+      // Typeahead
+      $('#input-name').typeahead({
+        minLength: 1,
+        highlight: true,
+      },
+      {
+        name: 'states',
+        displayKey: 'value',
+        source: substringMatcher(states)
       });
-      $('.form-fields .input').on('blur', function(e){
-        $(this).parent().removeClass('active');
-      });
-      $('.form-fields label').on('click', function(e){
-        console.log('yup');
-        $(this).next('.input').focus();
-      });
-      $('.form-fields .next').on('click', function(e){
-        $(this).parent().parent().next('li').find('.input').focus();
-      });
-      $('.form-fields .input').bind('keyup', function(e){
-        // Use [Backspace, Left, Up] and [Enter, Right, Down]
-        //   to iterative the form appropriately
-        if(e.keyCode==8 || /*e.keyCode==37 ||*/ e.keyCode==38) {
-          $(this).parent().prev('li').find('.input').focus();
-        } else if(e.keyCode==13 || /*e.keyCode==39 ||*/ e.keyCode==40) {
-          $(this).parent().next('li').find('.input').focus();
-        } 
-      });
+
+      // via http://jsfiddle.net/sxGtM/3/
+      $.fn.serializeObject = function(){
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+          if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+          } else {
+            o[this.name] = this.value || '';
+          }
+        });
+        return o;
+      };
 
       $(document).ready(function(){
 
@@ -93,9 +138,57 @@
           offset: -50
         });
 
+        // Focus forward/back
+        $('.form-fields .input').on('focus', function(e){
+          $(this).parent().addClass('active');
+        });
+        $('.form-fields .input').on('blur', function(e){
+          $(this).parent().removeClass('active');
+        });
+        $('.form-fields label').on('click', function(e){
+          console.log('yup');
+          $(this).next('.input').focus();
+        });
+        $('.form-fields .next').on('click', function(e){
+          $(this).parent().parent().next('li').find('.input').focus();
+        });
+        $('.form-fields .input').bind('keyup', function(e){
+          // Use [Up] and [Enter, Down]
+          //   to iterative the form appropriately
+          if(e.keyCode==38) {
+            $(this).parent().prev('li').find('.input').focus();
+          } else if(e.keyCode==13 || e.keyCode==40) {
+            $(this).parent().next('li').find('.input').focus();
+          } 
+        });
+
+        // Submit data
+        $('#submit').on('click', function(e){
+
+          // Build the payload
+          var payload = JSON.stringify( $('form#app').serializeObject() );
+
+          // POST jqXHR
+          var jqxhr = $.ajax({
+            type: 'POST',
+            url: '/outbound/new',
+            data: payload,
+            cache: false
+          })
+          .done(function() {
+            console.log('done');
+          })
+          .fail(function() {
+            console.log('fail');
+          })
+          .always(function() {
+            console.log(payload);
+          });
+
+        });
+
         // Select first form
-        $('.wrapper .form-fields li').first().addClass('active');
-        $('.wrapper .form-fields li input').first().focus();
+        $('.form-fields .input').first().focus();
 
       });
 
