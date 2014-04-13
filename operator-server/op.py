@@ -37,7 +37,7 @@ def loop_human_check(uid):
             action      = 'http://happyoperator.com/inbound/complete/'+str(uid),
             method      = 'GET',
             numDigits   = 1,
-            timeout     = 1,
+            timeout     = 20,
             finishOnKey = '#',
         ),
         inboundxml.Redirect(
