@@ -11,10 +11,20 @@ def home_page():
     '''
     return render_template('index.html')
 
-@app.route('/companies/<query>.json')
+@app.route('/companies/search/<query>')
 def company_search(query):
-    results = list(mongo.db.companies.find({'name': {'$regex': query, '$options': '-i'}}))
-    return json.dumps(results, default=json_util.default)
+    results = list(mongo.db.companies.find({
+        'name': {
+            '$regex': query,
+            '$options': '-i'
+        }
+    }))
+    return json.dumps(results, default=json_util.default, ensure_ascii=False)
+
+@app.route('/companies/info/<query>')
+def company_info(query):
+    company = mongo.db.companies.find_one({'name': query})
+    return json.dumps(company, default=json_util.default, ensure_ascii=False)
 
 @app.route('/outbound/new', methods=['POST', 'PUT'])
 def handle_outbound():
