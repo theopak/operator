@@ -59,7 +59,7 @@ def handle_outbound():
 
     sequence = ['w' + x for x in sequence]
     sequence = ''.join(sequence)
-    sequence = 'wwwwww' + sequence
+    sequence = 'wwww' + sequence
 
     business = mongo.db.companies.find_one({'name': name})
     op.place_call(business['phone'], sequence)
@@ -74,6 +74,7 @@ def handle_outbound():
 @app.route('/inbound/connected/<sequence>', methods=['POST', 'PUT'])
 def handle_inbound(sequence):
     sid = request.form['CallSid']
+    print "CallSid", sid
     return Response(op.press_buttons(sid, sequence), mimetype="text/xml")
 
 
