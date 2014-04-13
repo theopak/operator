@@ -49,9 +49,9 @@ def handle_outbound():
     # phone = request.form['input-number']
     sequence = request.form['sequence']
 
-    sequence = "wwww" + sequence
-    sequence = ['wwww' + x for x in sequence]
+    sequence = ['w' + x for x in sequence]
     sequence = ''.join(sequence)
+    sequence = 'wwwwww' + sequence
     print sequence
 
     op.place_call("+16034756914", sequence)
@@ -63,11 +63,12 @@ def handle_outbound():
     data = {'result': 'success'}
     return json.dumps(data, default=json_util.default)
 
-@app.route('/inbound/connected/<sequence>')
+@app.route('/inbound/connected/<sequence>', methods=['POST', 'PUT'])
 def handle_inbound(sequence):
-    return op.press_buttons(None, sequence)
+    sid = request.form['CallSid']
+    return Response(op.press_buttons(sid, sequence), mimetype="text/xml")
 
 
 if __name__ == "__main__":
     app.debug = True  # Do not enable Debug mode on the production server!
-    app.run()
+    app.run(port=8001)
