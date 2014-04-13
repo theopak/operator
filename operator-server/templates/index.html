@@ -23,12 +23,12 @@
         <ul class="form-fields">
            <li class="active">
               <label>How can I reach you?</label>
-              <input type="text" name="input-number" class="text-input" placeholder="(800) 555-5555"/>
+              <input type="tel" name="input-number" class="text-input" placeholder="(800) 555-5555"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
               <label>Where should I email the transcript?</label>
-              <input type="text" name="input-email" class="text-input" placeholder="your-email@example.com"/>
+              <input type="email" name="input-email" class="text-input" placeholder="your-email@example.com"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
@@ -36,9 +36,12 @@
               <input type="text" name="input-name" id="input-name" class="text-input typeahead" placeholder="Type name or number&hellip;"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
            </li>
-           <li class="hidden">
+           <li class="active">
               <label>What language do you speak?</label>
-              <input type="text" name="1" class="text-input" placeholder="English&hellip;"/>
+              <select id="input-selection-1">
+               <option value="1">English</option>
+               <option value="2">Espa&ntilde;ol</option>
+             </select>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">

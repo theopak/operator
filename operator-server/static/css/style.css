@@ -3025,6 +3025,7 @@ header {
   padding: 1em 20px;
   width: 100%;
   color: #fafafa;
+  background-color: #1f1f1f;
   text-align: center; }
   header h1 {
     margin: 0;
@@ -3060,11 +3061,13 @@ ul.form-fields li {
 .hidden {
   display: none; }
 
-label, input, textarea, .extra-help, .btn {
+label, input, textarea, select, .extra-help, .btn {
   box-sizing: border-box;
   margin: 0;
   padding: 0.125em;
   width: 100%;
+  border: none;
+  background: transparent;
   color: #d4d4d4;
   transition: all 0.25s ease-in-out; }
 
@@ -3081,6 +3084,7 @@ label, input, textarea, .extra-help, .btn {
 .active label, label:focus,
 .active input, input:focus,
 .active textarea, textarea:focus,
+.active select, select:focus,
 .active .extra-help,
 .next, .btn:hover, .btn:focus {
   color: #fafafa;
@@ -3122,11 +3126,12 @@ input, textarea {
 .twitter-typeahead {
   width: 100%; }
 
-.tt-dropdown-menu {
+.tt-dropdown-menu, option {
   margin: 0;
   padding: 0.125em;
   width: 100%;
-  font-family: "Source Code Pro", "Courier New", monospace, serif; }
+  font-family: "Source Code Pro", "Courier New", monospace, serif;
+  background: transparent; }
 
 input.tt-hint {
   color: #adadad; }

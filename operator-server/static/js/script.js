@@ -64,7 +64,7 @@ $(document).ready(function(){
       scrollTarget: target,
       speed: 200
     });
-    delay(200);
+    //delay(200);
     target.addClass('active')
     console.log('focused.');
   });
@@ -83,7 +83,8 @@ $(document).ready(function(){
   });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
-    $('li.active').removeClass('active').next('li').find('.text-input')
+    $('li.active').removeClass('active')
+      .next('li').find('.text-input').first()
       .focus();
   });
   $('.form-fields .text-input').bind('keydown', function(event){
