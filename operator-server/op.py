@@ -31,12 +31,14 @@ def press_buttons(sid, uid, sequence):
 def loop_human_check(uid):
     return '<?xml version="1.0"?>\n' + str(inboundxml.Response(
         inboundxml.Gather(
-            inboundxml.Say('Please press 1 for your next customer'),
+            inboundxml.Play(
+                "http://happyoperator.com/static/wav/press-zeroSwiftAlphaOne.wav",
+            ),
             action      = 'http://happyoperator.com/inbound/complete/'+str(uid),
             method      = 'GET',
             numDigits   = 1,
             timeout     = 1,
-            finishOnKey = '#'
+            finishOnKey = '#',
         ),
         inboundxml.Redirect(
             'http://happyoperator.com/inbound/waiting/'+str(uid),
