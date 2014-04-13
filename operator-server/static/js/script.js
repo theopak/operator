@@ -53,7 +53,27 @@ $(document).ready(function(){
     }, 500);
   }, false);
 
+  // General focus forward/back
+  $("form#app li").focusin(function(){
+    $(this).removeClass('hidden');
+    $(this).addClass('active');
+    var target = $(this).find('.text-input').first();
+    $.smoothScroll({
+      offset: -focusHeight,
+      scrollTarget: target,
+      afterScroll: focus(target),
+      speed: 200
+    });
+    $(this).nextAll('li').addClass('hidden');
+    console.log('form#app li focusin() done.')
+  });
+  $("form#app li").focusout(function(){
+    $(this).removeClass('active');
+    console.log('form#app li focusout() done.')
+  });
+
   // Focus forward/back
+  /*
   $(".form-fields").on("focus", ".text-input", function(){
     var target = $(this).parent('li');
     target
@@ -64,18 +84,22 @@ $(document).ready(function(){
       scrollTarget: target,
       speed: 200
     });
-    //delay(200);
     target.addClass('active')
     console.log('focused.');
   });
+  */
+  /*
   $('.form-fields .text-input').on('blur', function(e){
     console.log('.text-input blur: parent removeClass active');
     $(this).parent().removeClass('active');
   });
+  */
+  /*
   $('.form-fields label').on('click', function(e){
     console.log('click will result in focus.');
     $(this).next('.text-input').focus();
   });
+  */
   $('.form-fields .next').on('click', function(e){
     console.log('button click will result in focus.');
     $(this).parentsUntil('li.active').first().parent()
@@ -90,30 +114,30 @@ $(document).ready(function(){
   $('.form-fields .text-input').bind('keydown', function(event){
     if((event.keyCode==9 && event.shiftKey) || event.keyCode==38) {
       // Use [Shift+Tab, Up] to iterate up.
-      $(this).parent()
-        //.addClass('hidden')
-        .prev('li').find('.text-input').first().focus();
-      event.preventDefault();
+      //$(this).parent().trigger('focusout');
+      $(this).parent().prev('li').trigger('focusin');
+      //event.preventDefault();
     } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
       // Use [Tab, Enter, Down] to iterate down.
       var dataNext = $(this).data('next');
       console.log(dataNext);
       if(!(dataNext=="")) {
-        $('li.hidden').first().removeClass('hidden');
-        $(dataNext).focus();
+        $(this).parent().trigger('focusout');
+        //$('li.hidden').first().removeClass('hidden');
+        $(dataNext).trigger('focusin');
       } else {
-        $(this).parent().next('li')
-          .removeClass('hidden')
-          .find('.text-input').first().focus();
+        //$(this).parent().trigger('focusout');
+        console.log($(this).parent().next('li'));
+        $(this).parent().next('li').trigger('focusin');
       }
-      event.preventDefault();
+      //event.preventDefault();
     } 
   });
 
   // Initialize state
   var focusHeight = $('.form-fields input').first().offset().top;
   console.log('focusHeight = ' + focusHeight);
-  $('form#app>ul>li').addClass('.hidden');
+  //$('form#app>ul>li').addClass('.hidden');
   $('form#app>ul>li').first()
     .removeClass('.hidden')
     .addClass('active');
@@ -138,8 +162,8 @@ $(document).ready(function(){
     payload['sequence'] = $('#sequence-1').val();
     payload = JSON.stringify(payload);
 
-
     // Hide field entry
+    $('#intro').fadeOut();
     $('.form-fields li').each(function(){ $(this).fadeOut(); });
 
     // POST to the application
