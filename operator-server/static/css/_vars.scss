@@ -58,8 +58,8 @@ $desk-wide-start:   1200px!default;
 $base-font-size:    16px!default;
 $base-line-height:  24px!default;
 $base-font-family:  'Proxima Nova','Helvetica Neue',Helvatica,Arial,sans-serif;
-$base-ui-color:     #222;         // Default colour for objects’ borders etc.
-$brand-color:       #fafafa;
+$base-ui-color:     #fafafa;      // Default colour for objects’ borders etc.
+$brand-color:       #2C2E35;
 $brand-face:        'Bitter';
 $brand-round:       50%;          // Rounded corner radius. 50% makes circles.
 
@@ -70,6 +70,7 @@ $brand-round:       50%;          // Rounded corner radius. 50% makes circles.
 /**
  * Place any of your own variables that sit on top of inuit.css here.
  */
+$neutral-color:     #1f1f1f;      // Background
 $instructions-face: 'Open Sans',$base-font-family;
-$input-face:        'Courier New',monospace,serif;
+$input-face:        'Source Code Pro','Courier New',monospace,serif;
 $active-color:      #428bca;      // My default for link and item selection.

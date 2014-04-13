@@ -54,67 +54,72 @@ $(document).ready(function(){
   }, false);
 
   // Focus forward/back
-  $(".form-fields").on("focus", "input, textarea, .input", function() {
-    var target = $(this).parent();
-    target.addClass('active');
-    target.removeClass('hidden');
+  $(".form-fields").on("focus", ".text-input", function(){
+    var target = $(this).parent('li');
+    target
+      //.removeClass('hidden')
+      .nextAll('li').addClass('hidden');
     $.smoothScroll({
       offset: -focusHeight,
       scrollTarget: target,
+      speed: 200
     });
+    delay(200);
+    target.addClass('active')
     console.log('focused.');
   });
-  $('.form-fields .input').on('blur', function(e){
-    console.log('input blur: parent removeClass active');
+  $('.form-fields .text-input').on('blur', function(e){
+    console.log('.text-input blur: parent removeClass active');
     $(this).parent().removeClass('active');
   });
   $('.form-fields label').on('click', function(e){
     console.log('click will result in focus.');
-    $(this).next('.input').focus();
+    $(this).next('.text-input').focus();
   });
   $('.form-fields .next').on('click', function(e){
     console.log('button click will result in focus.');
-    $(this).parentsUntil('li.active').first().parent().next('li.hidden')
-    //$('li.active').not('.hidden').last().next('li')
-      .removeClass('hidden')
-      .addClass('active')
-        .find('.input').first().focus();
+    $(this).parentsUntil('li.active').first().parent()
+      .next('li.hidden .text-input').focus();
   });
   $(document).on('typeahead:closed', function(){
     console.log('typeahead:closed');
-    $('li.active').not('.hidden').last().next('li')
-      .removeClass('hidden')
-      .find('.input').focus();
+    $('li.active').removeClass('active').next('li').find('.text-input')
+      .focus();
   });
-  $('.form-fields .input').bind('keyup', function(e){
-    // Use [Up] and [Enter, Down]
+  $('.form-fields .text-input').bind('keydown', function(event){
+    // Use [Up, Shift+Tab] and [Tab, Enter, Down]
     //   to iterative the form appropriately
-    if(e.keyCode==38) {
+    if((event.keyCode==9 && event.shiftKey) || event.keyCode==38) {
       $(this).parent()
-        .addClass('hidden')
-        .prev('li').find('.input').focus();
-    } else if(e.keyCode==13 || e.keyCode==40) {
+        //.addClass('hidden')
+        .prev('li').find('.text-input').first().focus();
+      event.preventDefault();
+    } else if(event.keyCode==9 || event.keyCode==13 || event.keyCode==40) {
       $(this).parent().next('li')
         .removeClass('hidden')
-        .find('.input').focus();
+        .find('.text-input').first().focus();
+      event.preventDefault();
     } 
   });
 
   // Initialize state
   var focusHeight = $('.form-fields input').first().offset().top;
   console.log('focusHeight = ' + focusHeight);
-  $('.form-fields input').first().focus();
+  $('#input-name').focus();
 
   // Submit data
   $('#submit').on('click', function(e){
 
     // Build the payload
     var payload = {};
-    $('form#app').find("input, textarea, .input").each(function() {
+    $('form#app').find("input, textarea, .text-input").each(function() {
       payload[this.name] = $(this).val();
     });
     payload.sequence = payload['1'];
     payload = JSON.stringify(payload);
+
+    // Hide field entry
+    $('.form-fields li').each(function(){ $(this).fadeOut(); });
 
     // POST to the application
     var jqxhr = $.ajax({
@@ -127,14 +132,17 @@ $(document).ready(function(){
     })
     .done(function() {
       console.log('done.');
+      $('.wrapper').append("<p>Got it! I'll give you a call when they're ready. And keep an eye on your email for the transcript.</p>");
     })
     .fail(function(response) {
       console.log('fail.');
+      $('.form-fields li').last().append("<label>Something bad happened :(</label>");
     })
     .always(function(response) {
       console.log('request: '  + payload);
       console.log('response: ' + response);
     });
+
 
   });
 

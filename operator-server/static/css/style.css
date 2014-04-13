@@ -1362,7 +1362,7 @@ td {
  */
 .table--bordered th,
 .table--bordered td {
-  border: 1px solid #222222; }
+  border: 1px solid #fafafa; }
   .table--bordered th:empty,
   .table--bordered td:empty {
     border: none; }
@@ -2647,14 +2647,14 @@ label,
  */
 .brand {
   font-family: "Bitter!important";
-  color: #fafafa!important; }
+  color: #2c2e35!important; }
 
 .brand-face {
   font-family: "Bitter!important"; }
 
 .brand-color,
 .brand-colour {
-  color: #fafafa!important; }
+  color: #2c2e35!important; }
 
 /*------------------------------------*\
     $HELPER
@@ -2985,14 +2985,15 @@ body {
   min-height: 100%;
   line-height: 1.375em;
   text-rendering: optimizeLegibility;
-  background: url(../img/picjumbo.com_IMG_3642_export.jpg) no-repeat left center fixed;
+  background: #1f1f1f no-repeat left center fixed;
   background-size: cover;
+  color: #fafafa;
   overflow: hidden; }
 
 ::selection {
   background: #add1ed;
   text-shadow: none;
-  color: #fafafa; }
+  color: #2c2e35; }
 
 a {
   cursor: pointer;
@@ -3023,12 +3024,13 @@ header {
   margin: 0 auto;
   padding: 1em 20px;
   width: 100%;
-  color: #222222;
+  color: #fafafa;
   text-align: center; }
   header h1 {
     margin: 0;
     font: 700 1.75em "Bitter";
     letter-spacing: -0.02em;
+    text-shadow: 0 1px 0 #2c2e35;
     white-space: nowrap; }
   header.sticket {
     position: fixed;
@@ -3037,15 +3039,17 @@ header {
 /* CONTENT BODY =========================================================== */
 .wrapper {
   margin: 4.5em auto 3em;
-  padding: 0 20px;
+  padding: 0 20px 5em;
   text-align: center; }
-  .wrapper h2 {
+  .wrapper p {
     font: italic 1em/1.5em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
     padding: 0 0.125em; }
-    .wrapper h2 emph {
+    .wrapper p emph {
       display: block;
       clear: both;
       font-size: 1.5em; }
+  .wrapper hr {
+    border-top: none; }
 
 ul.form-fields li {
   position: relative;
@@ -3058,27 +3062,28 @@ ul.form-fields li {
 
 label, input, textarea, .extra-help, .btn {
   box-sizing: border-box;
-  margin: 0 0.5em;
-  padding: 0.375em 0.125em 0.125em;
+  margin: 0;
+  padding: 0.125em;
   width: 100%;
-  color: #484848;
+  color: #d4d4d4;
   transition: all 0.25s ease-in-out; }
 
 .extra-help {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 0;
+  display: block;
+  float: right;
+  margin: -1.75em 0 0;
   padding-top: 0;
   width: auto;
-  line-height: 1.5em; }
+  line-height: 1.5em;
+  text-align: center;
+  transition: none; }
 
 .active label, label:focus,
 .active input, input:focus,
 .active textarea, textarea:focus,
 .active .extra-help,
 .next, .btn:hover, .btn:focus {
-  color: #222222;
+  color: #fafafa;
   outline: none; }
 
 label {
@@ -3089,12 +3094,12 @@ input, textarea {
   border: none;
   border-bottom: 1px solid transparent;
   background: transparent;
-  font-family: "Courier New", monospace, serif; }
+  font-family: "Source Code Pro", "Courier New", monospace, serif; }
   input:focus, textarea:focus {
-    border-bottom-color: #222222; }
+    border-bottom-color: #fafafa; }
 
 *::-webkit-input-placeholder {
-  color: #484848; }
+  color: #d4d4d4; }
 
 .next {
   display: block;
@@ -3110,34 +3115,33 @@ input, textarea {
 
 .btn-primary {
   margin-bottom: 3em; }
+  .btn-primary:focus {
+    border-bottom-width: 1px; }
 
 /* TWITTER TYPEAHEAD ====================================================== */
 .twitter-typeahead {
   width: 100%; }
 
 .tt-dropdown-menu {
-  margin: 0 0.5em;
+  margin: 0;
   padding: 0.125em;
   width: 100%;
-  height: auto;
-  overflow-x: hidden;
-  overflow-y: auto;
-  font-family: "Courier New", monospace, serif; }
+  font-family: "Source Code Pro", "Courier New", monospace, serif; }
 
 input.tt-hint {
-  color: #6f6f6f; }
+  color: #adadad; }
 
 /* FOOTER ================================================================= */
 footer {
   padding: 0.375em 20px 0.75em;
   font: italic 1em "Open Sans", "Proxima Nova", "Helvetica Neue", Helvatica, Arial, sans-serif;
   text-align: center;
-  color: #555555; }
+  color: #c7c7c7; }
   footer p {
     margin: 0; }
   footer a {
     font-weight: bold;
-    color: #555555; }
+    color: #c7c7c7; }
     footer a:hover {
       color: #428bca; }
 

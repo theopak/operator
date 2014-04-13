@@ -5,7 +5,7 @@
     <title>Operator</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimal-ui">
     <meta name="mobile-web-app-capable" content="yes">
-    <link href='http://fonts.googleapis.com/css?family=Bitter:700|Open+Sans:400,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Bitter:700|Open+Sans:400,400italic|Source+Code+Pro' rel='stylesheet' type='text/css'>
     <link href="static/css/style.css" media="all" rel="stylesheet" type="text/css" />
   </head>
   <body id="top">
@@ -17,38 +17,38 @@
 
     <div class="wrapper">
 
-      <h2>Need me to call someone for you?<br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</h2>
+      <p>Need me to call someone for you?<br/>I'll wait on hold and then let you know when it's time to talk to a real human being.</p>
 
       <form id="app" class="animated fadeIn">
         <ul class="form-fields">
            <li class="active">
-              <label>Who can I call for you?</label>
-              <input type="text" name="input-name" id="input-name" class="input text-input typeahead" placeholder="Type name or number&hellip;"/>
-              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
-           </li>
-           <li class="hidden">
-              <label>What language do you speak?</label>
-              <input type="text" name="1" class="input text-input" placeholder="English&hellip;"/>
-              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
-           </li>
-           <li class="hidden">
-              <label>And what seems to be the problem?</label>
-              <textarea class="input" name="input-problem" placeholder="Type a full sentance."></textarea>
-              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
-           </li>
-           <li class="hidden">
-              <label>What's your number?</label>
-              <input type="text" name="input-number" class="input " placeholder="+1 (xxx) xxx-xxxx"/>
+              <label>How can I reach you?</label>
+              <input type="text" name="input-number" class="text-input" placeholder="(800) 555-5555"/>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
               <label>Where should I email the transcript?</label>
-              <input type="text" name="input-email" class="input " placeholder="your-email@example.com"/>
+              <input type="text" name="input-email" class="text-input" placeholder="your-email@example.com"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
+           </li>
+           <li class="hidden">
+              <label>Who can I call for you?</label>
+              <input type="text" name="input-name" id="input-name" class="text-input typeahead" placeholder="Type name or number&hellip;"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></a></small>
+           </li>
+           <li class="hidden">
+              <label>What language do you speak?</label>
+              <input type="text" name="1" class="text-input" placeholder="English&hellip;"/>
+              <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
+           </li>
+           <li class="hidden">
+              <label>And what seems to be the problem?</label>
+              <textarea name="input-problem" class="text-input" placeholder="Type a full sentance."></textarea>
               <small class="extra-help"><a class="next"><span class="entypo chevron-right"></span></a></small>
            </li>
            <li class="hidden">
               <label></label>
-              <a href="#" class="btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a>
+              <a href="#" class="text-input btn btn-primary" id="submit">Call me <span class="entypo chevron-right"></span></a>
            </li>
         </ul>
       </form>
